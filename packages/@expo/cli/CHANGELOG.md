@@ -13,9 +13,11 @@
 - Add `EXPO_USE_STICKY_RESOLVER` to enable experimental sticky resolution to native modules ([#37201](https://github.com/expo/expo/pull/37201) by [@kitten](https://github.com/kitten))
 - Support external URLs with static redirects ([#38041](https://github.com/expo/expo/pull/38041) by [@hassankhan](https://github.com/hassankhan))
 - Add `EXPO_UNSTABLE_LIVE_BINDINGS` to allow developer to disable live binding in `experimentalImportSupport`. ([#38135](https://github.com/expo/expo/pull/38135) by [@krystofwoldrich](https://github.com/krystofwoldrich))
+- Add `location.origin`, Expo SDK version and Hermes version to sitemap UI ([#38201](https://github.com/expo/expo/pull/38201) by [@hassankhan](https://github.com/hassankhan))
 
 ### 🐛 Bug fixes
 
+- Fix DOM component metadata overwriting causing WebView 404s after EAS updates. ([#38290](https://github.com/expo/expo/pull/38290) by [@danoc](https://github.com/danoc))
 - Support `--output-dir` being a directory outside of the project root. ([#38260](https://github.com/expo/expo/pull/38260) by [@EvanBacon](https://github.com/EvanBacon))
 - Update error message for ngrok ([#22469](https://github.com/expo/expo/pull/22469) by [@russorat](https://github.com/russorat))
 - Support SSR imports of internal node builtins such as `_http_agent`. ([#37494](https://github.com/expo/expo/pull/37494) by [@EvanBacon](https://github.com/EvanBacon))
