@@ -91,20 +91,20 @@ export type TextInputProps = {
   /**
    * If true, the text input is editable.
    */
-  editable: boolean;
+  editable?: boolean;
   /**
    * The string with the testId for E2E tests.
    */
-  testID: string;
+  testID?: string;
   /**
    * Text styles object.
    * @default undefined, which means default text style.
    */
-  style: TextStyleProps | undefined;
+  style?: TextStyleProps | undefined;
   /**
    * If true, password text field will be showed.
    */
-  secureEntry: boolean;
+  secureEntry?: boolean;
   /**
    * The mask that should be aplied to the field. Please follow the following pattern:
    * [0]: mandatory digit. For instance, [000] will allow entering three digits: 123.
