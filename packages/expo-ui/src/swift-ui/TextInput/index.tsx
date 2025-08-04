@@ -27,15 +27,15 @@ export type TextInputProps = {
   /**
    * A callback triggered when user types in text into the TextInput.
    */
-  onChangeText: (value: string) => void;
+  onChangeText?: (value: string) => void;
   /**
    * A callback triggered when user focus TextInput.
    */
-  onTextFieldFocus: () => void;
+  onTextFieldFocus?: () => void;
   /**
    * A callback triggered when user blur TextInput.
    */
-  onTextFieldBlur: () => void;
+  onTextFieldBlur?: () => void;
   /**
    * The string that will be rendered before text input has been entered.
    */
