@@ -5,7 +5,7 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import cexpo.modules.ui.textfield.helper.AffinityCalculationStrategy
+import expo.modules.ui.textfield.helper.AffinityCalculationStrategy
 import expo.modules.ui.textfield.helper.Mask
 import expo.modules.ui.textfield.helper.RTLMask
 import expo.modules.ui.textfield.model.CaretString
