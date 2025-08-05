@@ -1,8 +1,8 @@
 import { requireNativeView } from 'expo';
-import { Ref } from 'react';
-import { StyleProp, ViewStyle } from 'react-native';
+import type { Ref } from 'react';
+import type { StyleProp, ViewStyle } from 'react-native';
 
-import { ExpoModifier, ViewEvent } from '../../types';
+import type { ExpoModifier, ViewEvent } from '../../types';
 
 /**
  * @hidden Not used anywhere yet.
@@ -23,13 +23,32 @@ export type TextInputProps = {
    */
   style?: StyleProp<ViewStyle>;
   /**
+   * Additional styles to apply to the label for TextInput.
+   */
+  textStyle?: TextStyleProps;
+  /**
    * Initial value that the TextInput displays when being mounted. As the TextInput is an uncontrolled component, change the key prop if you need to change the text value.
    */
   defaultValue?: string;
   /**
+   * The string that will be rendered before text input has been entered.
+   */
+  placeholder?: string;
+  /**
    * A callback triggered when user types in text into the TextInput.
    */
-  onChangeText: (value: string) => void;
+  onChangeText?: (value: string) => void;
+  /**
+   * A callback triggered when user focus TextInput.
+   */
+  onTextFieldFocus?: () => void;
+  /**
+   * A callback triggered when user blur TextInput.
+   */
+  onTextFieldBlur?: () => void;
+  /**
+   * The string that will be rendered before text input has been entered.
+   */
   /**
    * If true, the text input can be multiple lines.
    * While the content will wrap, there's no keyboard button to insert a new line.
