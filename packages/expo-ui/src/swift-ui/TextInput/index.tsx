@@ -1,7 +1,7 @@
 import { requireNativeView } from 'expo';
-import { StyleProp, ViewStyle } from 'react-native';
+import type { StyleProp, ViewStyle } from 'react-native';
 
-import { ViewEvent } from '../../types';
+import type { ViewEvent } from '../../types';
 import { Host } from '../Host';
 
 /**

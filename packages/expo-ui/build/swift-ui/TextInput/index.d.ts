@@ -1,5 +1,5 @@
-import { StyleProp, ViewStyle } from 'react-native';
-import { ViewEvent } from '../../types';
+import type { StyleProp, ViewStyle } from 'react-native';
+import type { ViewEvent } from '../../types';
 /**
  * @hidden Not used anywhere yet.
  */
@@ -21,15 +21,15 @@ export type TextInputProps = {
     /**
      * A callback triggered when user types in text into the TextInput.
      */
-    onChangeText: (value: string) => void;
+    onChangeText?: (value: string) => void;
     /**
      * A callback triggered when user focus TextInput.
      */
-    onTextFieldFocus: () => void;
+    onTextFieldFocus?: () => void;
     /**
      * A callback triggered when user blur TextInput.
      */
-    onTextFieldBlur: () => void;
+    onTextFieldBlur?: () => void;
     /**
      * The string that will be rendered before text input has been entered.
      */
@@ -73,20 +73,20 @@ export type TextInputProps = {
     /**
      * If true, the text input is editable.
      */
-    editable: boolean;
+    editable?: boolean;
     /**
      * The string with the testId for E2E tests.
      */
-    testID: string;
+    testID?: string;
     /**
      * Text styles object.
      * @default undefined, which means default text style.
      */
-    style: TextStyleProps | undefined;
+    style?: TextStyleProps | undefined;
     /**
      * If true, password text field will be showed.
      */
-    secureEntry: boolean;
+    secureEntry?: boolean;
     /**
      * The mask that should be aplied to the field. Please follow the following pattern:
      * [0]: mandatory digit. For instance, [000] will allow entering three digits: 123.

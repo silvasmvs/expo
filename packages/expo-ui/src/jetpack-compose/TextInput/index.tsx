@@ -1,8 +1,8 @@
 import { requireNativeView } from 'expo';
-import React from 'react';
+import type { ComponentType } from 'react';
+import type { StyleProp, ViewStyle } from 'react-native';
 
-import { ViewEvent } from '../../types';
-import { StyleProp, ViewStyle } from "react-native";
+import type { ViewEvent } from '../../types';
 
 /**
  * @hidden Not used anywhere yet.
@@ -122,7 +122,7 @@ export type NativeTextInputProps = Omit<TextInputProps, 'onChangeText'> & {} & V
   >;
 
 // We have to work around the `role` and `onPress` props being reserved by React Native.
-const TextInputNativeView: React.ComponentType<NativeTextInputProps> = requireNativeView(
+const TextInputNativeView: ComponentType<NativeTextInputProps> = requireNativeView(
   'ExpoUI',
   'TextInputView'
 );

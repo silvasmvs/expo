@@ -1,6 +1,5 @@
-import React from 'react';
-import { ViewEvent } from '../../types';
-import { StyleProp, ViewStyle } from "react-native";
+import type { StyleProp, ViewStyle } from 'react-native';
+import type { ViewEvent } from '../../types';
 /**
  * @hidden Not used anywhere yet.
  */
@@ -20,7 +19,7 @@ export type TextInputProps = {
      */
     style?: StyleProp<ViewStyle>;
     /**
-     * Additional styles to apply to the TextInput.
+     * Additional styles to apply to the label for TextInput.
      */
     textStyle?: TextStyleProps;
     /**
@@ -109,6 +108,6 @@ export type NativeTextInputProps = Omit<TextInputProps, 'onChangeText'> & {} & V
 /**
  * Renders a `TextInput` component.
  */
-export declare function TextInput(props: TextInputProps): React.JSX.Element;
+export declare function TextInput(props: TextInputProps): import("react").JSX.Element;
 export {};
 //# sourceMappingURL=index.d.ts.map
