@@ -2265,7 +2265,7 @@ PODS:
     - React-RCTFBReactNativeSpec
     - ReactCommon/turbomodule/core
     - SocketRocket
-  - react-native-keyboard-controller (1.18.2):
+  - react-native-keyboard-controller (1.18.3):
     - boost
     - DoubleConversion
     - fast_float
@@ -2283,7 +2283,7 @@ PODS:
     - React-graphics
     - React-ImageManager
     - React-jsi
-    - react-native-keyboard-controller/common (= 1.18.2)
+    - react-native-keyboard-controller/common (= 1.18.3)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-renderercss
@@ -2294,7 +2294,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-keyboard-controller/common (1.18.2):
+  - react-native-keyboard-controller/common (1.18.3):
     - boost
     - DoubleConversion
     - fast_float
@@ -2560,7 +2560,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-slider (4.5.7):
+  - react-native-slider (5.0.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -2578,7 +2578,7 @@ PODS:
     - React-graphics
     - React-ImageManager
     - React-jsi
-    - react-native-slider/common (= 4.5.7)
+    - react-native-slider/common (= 5.0.0)
     - React-NativeModulesApple
     - React-RCTFabric
     - React-renderercss
@@ -2589,7 +2589,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - react-native-slider/common (4.5.7):
+  - react-native-slider/common (5.0.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -3317,7 +3317,7 @@ PODS:
     - ReactCommon/turbomodule/core
     - SocketRocket
     - Yoga
-  - RNGestureHandler (2.26.0):
+  - RNGestureHandler (2.28.0):
     - boost
     - DoubleConversion
     - fast_float
@@ -4398,7 +4398,7 @@ SPEC CHECKSUMS:
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleMaps: b58e9627004f47043897eeae830c3ef023678f3b
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
-  hermes-engine: 549a9a58d85ddd2854f1f85283b661da58ab70e0
+  hermes-engine: 508aef00fe18a32c9a667e72afe990aa7f2829c5
   libavif: 84bbb62fb232c3018d6f1bab79beea87e35de7b7
   libdav1d: 23581a4d8ec811ff171ed5e2e05cd27bad64c39f
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
@@ -4444,14 +4444,14 @@ SPEC CHECKSUMS:
   React-logger: 96286cc9e6c073194274e4f5330a75d519c89d7a
   React-Mapbuffer: 04e062c73315f3a40d4032178f9d396c059c9bb7
   React-microtasksnativemodule: 3509d6a7d32ed14b91300854123965025f749fea
-  react-native-keyboard-controller: 2ea75136c309c43b5f1b9b02e332628e80c8d936
+  react-native-keyboard-controller: bf7ec487800e1283b95532d1259bde1fdf7c4bd5
   react-native-maps: fece4020ca8007967fa5eb48c914a8f2c73e7d4c
   react-native-netinfo: f0a9899081c185db1de5bb2fdc1c88c202a059ac
   react-native-pager-view: 5aa9fb30444ca4bbe382991b6783cc014ed5ca07
   react-native-safe-area-context: 5d8c627bc6296d018625948364c1a02d50d11bd4
   react-native-segmented-control: 44d14c6899ee12de3384517f4fa1cf4a66ae105c
   react-native-skia: e4a1edd09e2e7bd95956683673ac18f911d63cfb
-  react-native-slider: fe0add239ded49237c81fe25f3ad84adb3ce49c7
+  react-native-slider: 95b11a80deb9ad503b01debf1a6c71f9ba6485b9
   react-native-view-shot: aac285cd08144be29c19ab659930172836f0067f
   react-native-webview: 183e0d1f10b3c61c5ddd70f4ecd46488856a3573
   React-NativeModulesApple: 009989614b0619613138091469ae3bce6e4641ba
@@ -4489,7 +4489,7 @@ SPEC CHECKSUMS:
   RNCPicker: 6da395ee9db8d67a38c6102d4128b5a0b9ec0e21
   RNDateTimePicker: 5e3503a3a82a9710b0269fa6617e27f7896509bd
   RNFlashList: 3b0c6a34ba86318f897ff55ff7482b7e8ae18996
-  RNGestureHandler: f47ece8192844e594954cd8477b15a0e1a9fd874
+  RNGestureHandler: 4f7cc97a71d4fe0fcba38c94acdd969f5f17c91c
   RNReanimated: bc92d92315bde5372395f9f9b96e44bde14ea612
   RNScreens: fc90db67db667de4fa6caf1355d679e04fe4c30f
   RNSVG: 8d87cff016edf1b6ca409ed39804101836d75e90
@@ -4512,6 +4512,6 @@ SPEC CHECKSUMS:
   Yoga: 15c07d37869e68f295849c2af164cea21957f345
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: 6c9d0ce09e0896f726dda0aeac28e43823a06e04
+PODFILE CHECKSUM: 8c02d6375ca9e94808af454e704b44d0ccf2c0af
 
 COCOAPODS: 1.16.2
