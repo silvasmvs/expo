@@ -35,6 +35,21 @@
     "react-native": "*"
   },
   "files": [
-    "*"
+    "android",
+    "build",
+    "ios",
+    "src",
+    ".eslintrc.js",
+    "CHANGELOG.md",
+    "expo-module.config.json",
+    "jetpack-compose.d.ts",
+    "jetpack-compose.js",
+    "package.json",
+    "README.md",
+    "swift-ui-primitives.d.ts",
+    "swift-ui-primitives.js",
+    "swift-ui.d.ts",
+    "swift-ui.js",
+    "tsconfig.json"
   ]
 }
