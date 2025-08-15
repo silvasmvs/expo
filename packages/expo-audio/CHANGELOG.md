@@ -8,6 +8,8 @@
 
 ### 🐛 Bug fixes
 
+- [iOS] tvOS fixes. ([#38815](https://github.com/expo/expo/pull/38815) by [@douglowder](https://github.com/douglowder))
+
 ### 💡 Others
 
 ## 1.0.0 — 2025-08-13
@@ -31,6 +33,7 @@
 - [android][iOS][web] Fix recordForDuration status updates and add new record() options API ([#38612](https://github.com/expo/expo/pull/38612) by [@hirbod](https://github.com/hirbod))
 - [android]: Handle exceptions when retrieving maxAmplitude from MediaRecorder ([#38690](https://github.com/expo/expo/pull/38690) by [@hirbod](https://github.com/hirbod))
 - [iOS] Report correct playback rate. ([#38729](https://github.com/expo/expo/pull/38729) by [@aleqsio](https://github.com/aleqsio))
+- [web] Added crossOrigin property to useAudioPlayer and createAudioPlayer ([#38818](https://github.com/expo/expo/pull/38818) by [@hirbod](https://github.com/hirbod)
 
 ### 💡 Others
 

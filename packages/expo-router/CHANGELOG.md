@@ -6,9 +6,20 @@
 
 ### 🎉 New features
 
+- Add web tabs ([#38435](https://github.com/expo/expo/pull/38435) by [@Ubax](https://github.com/Ubax))
+
 ### 🐛 Bug fixes
 
+- [iOS] Suppress native link preview for Apple TV. ([#38814](https://github.com/expo/expo/pull/38814) by [@douglowder](https://github.com/douglowder))
+- fix navigation to hidden tabs ([#38829](https://github.com/expo/expo/pull/38829) by [@Ubax](https://github.com/Ubax))
+- add missing fields and checks to tabs API ([#38845](https://github.com/expo/expo/pull/38845) by [@Ubax](https://github.com/Ubax))
+- Remove reliance of deferred routing (for protected routes) on `ExpoRoot` update ([#38872](https://github.com/expo/expo/pull/38872) by [@kitten](https://github.com/kitten))
+
 ### 💡 Others
+
+- remove global enableFreeze(false) ([#38837](https://github.com/expo/expo/pull/38837) by [@Ubax](https://github.com/Ubax))
+- Remove deprecated `@testing-library/jest-native` in favor of `@testing-library/react-native` ([#37361](https://github.com/expo/expo/pull/37361) by [@byCedric](https://github.com/byCedric))
+- Replace `schema-utils` with `@expo/schema-utils` ([#38863](https://github.com/expo/expo/pull/38863) by [@kitten](https://github.com/kitten))
 
 ## 6.0.0-beta.0 — 2025-08-13
 
@@ -31,6 +42,7 @@
 - Allow running server middleware with `+middleware.ts` ([#38330](https://github.com/expo/expo/pull/38330) by [@hassankhan](https://github.com/hassankhan))
 - NativeTabs dynamic options ([#38581](https://github.com/expo/expo/pull/38581) by [@Ubax](https://github.com/Ubax))
 - add option to set border radius of highlight ([#38779](https://github.com/expo/expo/pull/38779) by [@Ubax](https://github.com/Ubax))
+- remove highlightBorderRadius prop ([#38796](https://github.com/expo/expo/pull/38796) by [@Ubax](https://github.com/Ubax)
 
 ### 🐛 Bug fixes
 
@@ -63,6 +75,7 @@
 - fix preloading of protected routes ([#38789](https://github.com/expo/expo/pull/38789) by [@Ubax](https://github.com/Ubax))
 - fix link preview native navigation without tabs ([#38787](https://github.com/expo/expo/pull/38787) by [@Ubax](https://github.com/Ubax))
 - fix link preview on iPad ([#38791](https://github.com/expo/expo/pull/38791) by [@Ubax](https://github.com/Ubax))
+- revert heavy tabs optimization ([#38802](https://github.com/expo/expo/pull/38802) by [@Ubax](https://github.com/Ubax))
 
 ### 💡 Others
 
