@@ -10,6 +10,16 @@
 
 ### 💡 Others
 
+## 0.25.2 — 2025-08-16
+
+### 💡 Others
+
+- Reuse `expo/internal/unstable-autolinking-exports` for `DevToolsPluginManager` ([#38913](https://github.com/expo/expo/pull/38913) by [@kitten](https://github.com/kitten))
+
+## 0.25.1 — 2025-08-15
+
+### 💡 Others
+
 - use relative paths in missing imports errors ([#38853](https://github.com/expo/expo/pull/38853) by [@EvanBacon](https://github.com/EvanBacon))
 - Reuse `derefSchema` from `@expo/schema-utils` ([#38863](https://github.com/expo/expo/pull/38863) by [@kitten](https://github.com/kitten))
 

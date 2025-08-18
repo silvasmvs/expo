@@ -6,6 +6,28 @@
 
 ### 🎉 New features
 
+### 🐛 Bug fixes
+
+- remove error when link with preview is used for external link ([#38939](https://github.com/expo/expo/pull/38939) by [@Ubax](https://github.com/Ubax))
+
+### 💡 Others
+
+- Throw an error when tabs are nested ([#38651](https://github.com/expo/expo/pull/38651) by [@Ubax](https://github.com/Ubax))
+
+## 6.0.0-beta.2 — 2025-08-16
+
+### 🛠 Breaking changes
+
+- For `expo-router/testing-library`, `@testing-library/react-native` must now be installed separately and it's an optional peer dependency ([#38887](https://github.com/expo/expo/pull/38887) by [@kitten](https://github.com/kitten))
+
+### 🐛 Bug fixes
+
+- Remove unused peer dependency on `@testing-library/jest-native` ([#38886](https://github.com/expo/expo/pull/38886) by [@kitten](https://github.com/kitten))
+
+## 6.0.0-beta.1 — 2025-08-15
+
+### 🎉 New features
+
 - Add web tabs ([#38435](https://github.com/expo/expo/pull/38435) by [@Ubax](https://github.com/Ubax))
 
 ### 🐛 Bug fixes

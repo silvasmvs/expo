@@ -6,6 +6,18 @@
 
 ### 🎉 New features
 
+### 🐛 Bug fixes
+
+### 💡 Others
+
+## 1.15.1 — 2025-08-16
+
+_This version does not introduce any user-facing changes._
+
+## 1.15.0 — 2025-08-15
+
+### 🎉 New features
+
 - Add links to changelogs for new package versions in version mismatch messages. ([#38765](https://github.com/expo/expo/pull/38765) by [@betomoedano](https://github.com/betomoedano))
 
 ### 🐛 Bug fixes

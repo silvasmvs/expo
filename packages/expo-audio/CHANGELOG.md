@@ -8,9 +8,19 @@
 
 ### 🐛 Bug fixes
 
-- [iOS] tvOS fixes. ([#38815](https://github.com/expo/expo/pull/38815) by [@douglowder](https://github.com/douglowder))
+- [Android] Fix regression in playing bundled assets in production. ([#38928](https://github.com/expo/expo/pull/38928) by [@alanjhughes](https://github.com/alanjhughes))
 
 ### 💡 Others
+
+## 1.0.2 — 2025-08-16
+
+_This version does not introduce any user-facing changes._
+
+## 1.0.1 — 2025-08-15
+
+### 🐛 Bug fixes
+
+- [iOS] tvOS fixes. ([#38815](https://github.com/expo/expo/pull/38815) by [@douglowder](https://github.com/douglowder))
 
 ## 1.0.0 — 2025-08-13
 
