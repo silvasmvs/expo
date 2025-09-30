@@ -6,13 +6,172 @@
 
 ### 🎉 New features
 
+- Add support for server data loaders in development ([#39570](https://github.com/expo/expo/pull/39570) by [@hassankhan](https://github.com/hassankhan))
+
+### 🐛 Bug fixes
+
+- fix VectorIcon types ([#39747](https://github.com/expo/expo/pull/39747) by [@Ubax](https://github.com/Ubax))
+- [iOS] fix icons in context menu not being removed with `undefined` ([#39845](https://github.com/expo/expo/pull/39845) by [@hassankhan](https://github.com/hassankhan))
+- [iOS] fix optional context menu props not being unset with `undefined` ([#39853](https://github.com/expo/expo/pull/39853) by [@hassankhan](https://github.com/hassankhan))
+- Fix `expo-router/server` exports ([#40071](https://github.com/expo/expo/pull/40071) by [@kitten](https://github.com/kitten))
+
+### 💡 Others
+
+## 6.0.6 — 2025-09-16
+
+### 🐛 Bug fixes
+
+- [android] fix Invalid prop style supplied to React.Fragment ([#39685](https://github.com/expo/expo/pull/39685) by [@Ubax](https://github.com/Ubax))
+
+## 6.0.5 — 2025-09-16
+
+### 🐛 Bug fixes
+
+- `expo-router/ui`: `TabTrigger` now correctly calls `onLongPress` prop instead of `onPress`. ([#39638](https://github.com/expo/expo/pull/39638) by [@TmLev](https://github.com/TmLev))
+
+## 6.0.4 — 2025-09-13
+
+### 🐛 Bug fixes
+
+- Add `@expo/metro-runtime` to dependencies & peer dependencies to fix Yarn v1 having no auto-installs ([#39644](https://github.com/expo/expo/pull/39644) by [@kitten](https://github.com/kitten))
+
+## 6.0.3 — 2025-09-12
+
+### 🐛 Bug fixes
+
+- Use `$$EXPO_INITIAL_PROPS` to determine if running inside a dom component. ([#39590](https://github.com/expo/expo/pull/39590) by [@EvanBacon](https://github.com/EvanBacon))
+
+## 6.0.2 — 2025-09-12
+
+### 🐛 Bug fixes
+
+- Move `@expo/metro-runtime` to peer dependencies, since that conveys our intention better ([#39603](https://github.com/expo/expo/pull/39603) by [@kitten](https://github.com/kitten))
+
+## 6.0.1 — 2025-09-11
+
+### 🐛 Bug fixes
+
+- fix link preview to a param route ([#39569](https://github.com/expo/expo/pull/39569) by [@Ubax](https://github.com/Ubax))
+
+## 6.0.0 — 2025-09-10
+
+### 🐛 Bug fixes
+
+- fix nested protected routes not taking into account the parents guard prop ([#39437](https://github.com/expo/expo/pull/39437) by [@saviocmc](https://github.com/saviocmc))
+- Fix `ExpoRoot`'s wrapper forcing a remount due to a `SafeAreaProvider` update ([#39476](https://github.com/expo/expo/pull/39476) by [@kitten](https://github.com/kitten))
+- fix unecessary render on screen blur ([#39454](https://github.com/expo/expo/pull/39454) by [@Ubax](https://github.com/Ubax))
+- fix routeInfo not updating on back navigation ([#39513](https://github.com/expo/expo/pull/39513) by [@Ubax](https://github.com/Ubax))
+
+## 6.0.0-preview.16 — 2025-09-08
+
+### 🐛 Bug fixes
+
+- use shadowColor to remove shadow on scroll edge ([#39396](https://github.com/expo/expo/pull/39396) by [@Ubax](https://github.com/Ubax))
+
+## 6.0.0-preview.15 — 2025-09-04
+
+### 💡 Others
+
+- simplify link preview hierarchy and expose more customization options ([#39357](https://github.com/expo/expo/pull/39357) by [@Ubax](https://github.com/Ubax))
+
+## 6.0.0-preview.14 — 2025-09-03
+
+_This version does not introduce any user-facing changes._
+
+## 6.0.0-preview.13 — 2025-09-02
+
+### 🎉 New features
+
+- apply display contents to link ([#39245](https://github.com/expo/expo/pull/39245) by [@Ubax](https://github.com/Ubax))
+- [web] add matcher support for server middleware ([#39225](https://github.com/expo/expo/pull/39225) by [@hassankhan](https://github.com/hassankhan))
+
+### 🐛 Bug fixes
+
+- fix link preview navigation to same href ([#39329](https://github.com/expo/expo/pull/39329) by [@Ubax](https://github.com/Ubax))
+
+## 6.0.0-preview.12 — 2025-08-31
+
+_This version does not introduce any user-facing changes._
+
+## 6.0.0-beta.10 — 2025-08-28
+
+### 🐛 Bug fixes
+
+- Prevent incorrect path rewrites when a URL is present in query parameters ([#39146](https://github.com/expo/expo/pull/39146) by [@hassankhan](https://github.com/hassankhan))
+
+## 6.0.0-beta.9 — 2025-08-27
+
+### 🐛 Bug fixes
+
+- [web] fix active font size on web ([#39190](https://github.com/expo/expo/pull/39190) by [@Ubax](https://github.com/Ubax))
+- fix dynamic options setting in native tabs ([#39152](https://github.com/expo/expo/pull/39152) by [@Ubax](https://github.com/Ubax))
+
+## 6.0.0-beta.8 — 2025-08-26
+
+### 🐛 Bug fixes
+
+- fix setting dynamic options in the tab, which is rendered in link preview ([#39139](https://github.com/expo/expo/pull/39139) by [@Ubax](https://github.com/Ubax))
+
+### 💡 Others
+
+- remove redundant native trigger view ([#38964](https://github.com/expo/expo/pull/38964) by [@Ubax](https://github.com/Ubax))
+- prevent changes of title and icon when role is set ([#39147](https://github.com/expo/expo/pull/39147) by [@Ubax](https://github.com/Ubax))
+
+## 6.0.0-beta.7 — 2025-08-25
+
+_This version does not introduce any user-facing changes._
+
+## 6.0.0-beta.6 — 2025-08-25
+
+### 🎉 New features
+
+- add support for custom icons on Android ([#39043](https://github.com/expo/expo/pull/39043) by [@Ubax](https://github.com/Ubax))
+
+### 🐛 Bug fixes
+
+- [ios] Added dependency on RNScreens in podspec to support dynamic linking through USE_FRAMEWORKS ([#39074](https://github.com/expo/expo/pull/39074) by [@chrfalch](https://github.com/chrfalch))
+- [web] fix incorrect `unstable_useServerMiddleware` warning ([#39093](https://github.com/expo/expo/pull/39093) by [@hassankhan](https://github.com/hassankhan))
+
+### 💡 Others
+
+- extract Screen component in NativeTabsView ([#39011](https://github.com/expo/expo/pull/39011) by [@Ubax](https://github.com/Ubax))
+- adjust native tabs to screens 4.15 ([#39017](https://github.com/expo/expo/pull/39017) by [@Ubax](https://github.com/Ubax))
+
+## 6.0.0-beta.5 — 2025-08-21
+
+### 🎉 New features
+
+- Update web modals to iOS 26 specifications ([#38897](https://github.com/expo/expo/pull/38897) by [@hirbod](https://github.com/hirbod))
+- add helpers to use expo vector icons in native tabs ([#39012](https://github.com/expo/expo/pull/39012) by [@Ubax](https://github.com/Ubax))
+
+### 🐛 Bug fixes
+
+- Resolve `unexpected ',' separator Refer to "Xcode Logs" below for additional, more detailed logs` issue. ([#38998](https://github.com/expo/expo/pull/38998) by [@Phil9l](https://github.com/Phil9l))
+
+## 6.0.0-beta.4 — 2025-08-19
+
+### 🐛 Bug fixes
+
+- fix link preview error, when preview is open to a tab without a Stack ([#38969](https://github.com/expo/expo/pull/38969) by [@Ubax](https://github.com/Ubax))
+- Fix useFocusEffect being called twice when tapping a tab or going back in a stack. ([#38856](https://github.com/expo/expo/pull/38856) by [@desii101](https://github.com/desii101))
+
+### 💡 Others
+
+- validate BottomTabs props ([#38959](https://github.com/expo/expo/pull/38959) by [@Ubax](https://github.com/Ubax))
+- use deffered value to fix performance for heavy tabs ([#38841](https://github.com/expo/expo/pull/38841) by [@Ubax](https://github.com/Ubax))
+
+## 6.0.0-beta.3 — 2025-08-18
+
 ### 🐛 Bug fixes
 
 - remove error when link with preview is used for external link ([#38939](https://github.com/expo/expo/pull/38939) by [@Ubax](https://github.com/Ubax))
+- [Internal] Remove internal `SafeAreaViewSlot` to remove `SafeAreaView` import warning ([#38899](https://github.com/expo/expo/pull/38899) by [@kitten](https://github.com/kitten))
+- improve animation for stack push from different tab ([#38927](https://github.com/expo/expo/pull/38927) by [@Ubax](https://github.com/Ubax))
 
 ### 💡 Others
 
 - Throw an error when tabs are nested ([#38651](https://github.com/expo/expo/pull/38651) by [@Ubax](https://github.com/Ubax))
+- refactor internal params logic ([#38929](https://github.com/expo/expo/pull/38929) by [@Ubax](https://github.com/Ubax))
 
 ## 6.0.0-beta.2 — 2025-08-16
 
@@ -115,6 +274,7 @@
 - Refactor link preview to show components in docs ([#38696](https://github.com/expo/expo/pull/38696) by [@Ubax](https://github.com/Ubax))
 - refactor tabs for docs export ([#38684](https://github.com/expo/expo/pull/38684) by [@Ubax](https://github.com/Ubax))
 - Use `@expo/server/private` for RSC Middleware imports ([#38717](https://github.com/expo/expo/pull/38717) by [@krystofwoldrich](https://github.com/krystofwoldrich))
+- Change Constants to Constant/Property. ([#38926](https://github.com/expo/expo/pull/38926) by [@jakex7](https://github.com/jakex7))
 
 ## 5.1.4 - 2025-07-18
 

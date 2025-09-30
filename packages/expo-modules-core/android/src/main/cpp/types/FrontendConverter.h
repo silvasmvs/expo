@@ -222,6 +222,20 @@ public:
 };
 
 /**
+ * Converter from js function to [expo.modules.kotlin.jni.JavaScriptArrayBuffer].
+ */
+class JavaScriptArrayBufferFrontendConverter : public FrontendConverter {
+public:
+  jobject convert(
+    jsi::Runtime &rt,
+    JNIEnv *env,
+    const jsi::Value &value
+  ) const override;
+
+  bool canConvert(jsi::Runtime &rt, const jsi::Value &value) const override;
+};
+
+/**
  * Converter from js view object to int.
  */
 class ViewTagFrontendConverter : public FrontendConverter {
@@ -425,6 +439,23 @@ private:
 class NullableFrontendConverter : public FrontendConverter {
 public:
   NullableFrontendConverter(
+    jni::local_ref<jni::JavaClass<SingleType>::javaobject> expectedType
+  );
+
+  jobject convert(
+    jsi::Runtime &rt,
+    JNIEnv *env,
+    const jsi::Value &value
+  ) const override;
+
+  bool canConvert(jsi::Runtime &rt, const jsi::Value &value) const override;
+private:
+  std::shared_ptr<FrontendConverter> parameterConverter;
+};
+
+class ValueOrUndefinedFrontendConverter : public FrontendConverter {
+public:
+  ValueOrUndefinedFrontendConverter(
     jni::local_ref<jni::JavaClass<SingleType>::javaobject> expectedType
   );
 

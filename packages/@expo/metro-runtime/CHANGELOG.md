@@ -10,6 +10,28 @@
 
 ### 💡 Others
 
+### ⚠️ Notices
+
+- Added support for React Native 0.82.x. ([#39678](https://github.com/expo/expo/pull/39678) by [@gabrieldonadel](https://github.com/gabrieldonadel))
+
+## 6.1.2 — 2025-09-12
+
+### 🐛 Bug fixes
+
+- Move `@expo/metro-runtime` to peer dependencies, since that conveys our intention better ([#39603](https://github.com/expo/expo/pull/39603) by [@kitten](https://github.com/kitten))
+
+## 6.1.1 — 2025-08-26
+
+### 🐛 Bug fixes
+
+- Avoid sending compilation errors back to Metro terminal from the application runtime ([#39142](https://github.com/expo/expo/pull/39142) by [@krystofwoldrich](https://github.com/krystofwoldrich))
+
+## 6.1.0 — 2025-08-19
+
+### 🎉 New features
+
+- Pass errors, synthetic and owners stacks to Metro Dev Server terminal ([#38871](https://github.com/expo/expo/pull/38871) by [@krystofwoldrich](https://github.com/krystofwoldrich))
+
 ## 6.0.2 — 2025-08-16
 
 _This version does not introduce any user-facing changes._

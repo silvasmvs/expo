@@ -10,6 +10,40 @@
 
 ### 💡 Others
 
+- Remove unused module check. ([#39822](https://github.com/expo/expo/pull/39822) by [@EvanBacon](https://github.com/EvanBacon))
+
+### ⚠️ Notices
+
+- Added support for React Native 0.82.x. ([#39678](https://github.com/expo/expo/pull/39678) by [@gabrieldonadel](https://github.com/gabrieldonadel))
+
+## 54.0.1 — 2025-09-12
+
+### 🐛 Bug fixes
+
+- Realign `babel-plugin-syntax-hermes-parser@^0.29.1` with `react-native@0.81.4`. ([#39600](https://github.com/expo/expo/pull/39600) by [@byCedric](https://github.com/byCedric))
+
+## 54.0.0 — 2025-09-10
+
+_This version does not introduce any user-facing changes._
+
+## 14.0.6 — 2025-09-02
+
+_This version does not introduce any user-facing changes._
+
+## 14.0.5 — 2025-08-31
+
+_This version does not introduce any user-facing changes._
+
+## 14.0.4 — 2025-08-27
+
+### 💡 Others
+
+- Set default `@babel/runtime` minimum version to the project's installed version, if any (as determined by `@expo/metro-config`), or `^7.20.0` ([#39040](https://github.com/expo/expo/pull/39040) by [@kitten](https://github.com/kitten))
+
+## 14.0.3 — 2025-08-25
+
+_This version does not introduce any user-facing changes._
+
 ## 14.0.2 — 2025-08-16
 
 _This version does not introduce any user-facing changes._

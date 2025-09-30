@@ -115,6 +115,14 @@ export const UIScreens = [
     },
   },
   {
+    name: 'Chart component',
+    route: 'ui/chart',
+    options: {},
+    getComponent() {
+      return optionalRequire(() => require('./ChartScreen'));
+    },
+  },
+  {
     name: 'Hosting RN Views',
     route: 'ui/hosting-rn-views',
     options: {},
@@ -128,6 +136,46 @@ export const UIScreens = [
     options: {},
     getComponent() {
       return optionalRequire(() => require('./ModifiersScreen'));
+    },
+  },
+  {
+    name: 'Animation Modifier',
+    route: 'ui/animation-modifier',
+    options: {},
+    getComponent() {
+      return optionalRequire(() => require('./AnimationModifierScreen'));
+    },
+  },
+  {
+    name: 'Glass Effect',
+    route: 'ui/glass-effect',
+    options: {},
+    getComponent() {
+      return optionalRequire(() => require('./GlassEffectScreen'));
+    },
+  },
+  {
+    name: 'Matched Geometry Effect',
+    route: 'ui/matched-geometry-effect',
+    options: {},
+    getComponent() {
+      return optionalRequire(() => require('./MatchedGeometryEffectScreen'));
+    },
+  },
+  {
+    name: 'Shapes',
+    route: 'ui/shapes',
+    options: {},
+    getComponent() {
+      return optionalRequire(() => require('./ShapesScreen'));
+    },
+  },
+  {
+    name: 'Image component',
+    route: 'ui/image',
+    options: {},
+    getComponent() {
+      return optionalRequire(() => require('./ImageScreen'));
     },
   },
 ];

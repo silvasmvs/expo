@@ -164,7 +164,9 @@ class Env {
     return boolish('EXPO_METRO_UNSTABLE_ERRORS', true);
   }
 
-  /** Enable the experimental sticky resolver for Metro. */
+  /** Enable the experimental sticky resolver for Metro (Uses Expo Autolinking results and applies them to Metro's resolution)
+   * @deprecated Replaced by `exp.experiments.autolinkingModuleResolution`
+   */
   get EXPO_USE_STICKY_RESOLVER() {
     return boolish('EXPO_USE_STICKY_RESOLVER', false);
   }
@@ -272,6 +274,17 @@ class Env {
   /** Disable by falsy value live binding in experimental import export support. Enabled by default. */
   get EXPO_UNSTABLE_LIVE_BINDINGS(): boolean {
     return boolish('EXPO_UNSTABLE_LIVE_BINDINGS', true);
+  }
+
+  /**
+   * Enable the experimental MCP integration or further specify the MCP server URL.
+   */
+  get EXPO_UNSTABLE_MCP_SERVER(): string {
+    const value = string('EXPO_UNSTABLE_MCP_SERVER', '');
+    if (value === '1' || value.toLowerCase() === 'true') {
+      return this.EXPO_STAGING ? 'staging-mcp.expo.dev' : 'mcp.expo.dev';
+    }
+    return value;
   }
 }
 

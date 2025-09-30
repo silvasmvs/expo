@@ -77,12 +77,15 @@ public class AudioModule: Module {
 
     // swiftlint:disable:next closure_body_length
     Class(AudioPlayer.self) {
-      Constructor { (source: AudioSource?, updateInterval: Double) -> AudioPlayer in
+      Constructor { (source: AudioSource?, updateInterval: Double, keepAudioSessionActive: Bool) -> AudioPlayer in
         let avPlayer = AudioUtils.createAVPlayer(from: source)
         let player = AudioPlayer(avPlayer, interval: updateInterval)
         player.owningRegistry = self.registry
+        player.keepAudioSessionActive = keepAudioSessionActive
         player.onPlaybackComplete = { [weak self] in
-          self?.deactivateSession()
+          if !keepAudioSessionActive {
+            self?.deactivateSession()
+          }
         }
         self.registry.add(player)
         return player
@@ -182,7 +185,9 @@ public class AudioModule: Module {
 
       Function("pause") { player in
         player.ref.pause()
-        deactivateSession()
+        if !player.keepAudioSessionActive {
+          deactivateSession()
+        }
       }
 
       Function("remove") { player in
@@ -192,6 +197,25 @@ public class AudioModule: Module {
       Function("setAudioSamplingEnabled") { (player, enabled: Bool) in
         if player.samplingEnabled != enabled {
           player.setSamplingEnabled(enabled: enabled)
+        }
+      }
+
+      Function("setActiveForLockScreen") { (player: AudioPlayer, active: Bool, metadata: Metadata?) in
+        player.setActiveForLockScreen(active, metadata: metadata)
+      }
+
+      Function("updateLockScreenMetadata") { (player: AudioPlayer, metadata: Metadata?) in
+        if player.isActiveForLockScreen {
+          player.metadata = metadata
+          MediaController.shared.updateNowPlayingInfo(for: player)
+        }
+      }
+
+      Function("clearLockScreenControls") { (player: AudioPlayer) in
+        if player.isActiveForLockScreen {
+          player.metadata = nil
+          player.isActiveForLockScreen = false
+          MediaController.shared.setActivePlayer(nil)
         }
       }
 
@@ -504,7 +528,7 @@ public class AudioModule: Module {
       }
 
 #if !os(tvOS)
-      if category == .playAndRecord {
+      if category == .playAndRecord || category == .playback {
         categoryOptions.insert(.allowBluetooth)
       }
 #endif
@@ -512,7 +536,11 @@ public class AudioModule: Module {
       sessionOptions = categoryOptions
     }
 
-    try session.setCategory(category, options: sessionOptions)
+    if sessionOptions.isEmpty {
+      try session.setCategory(category, mode: .default)
+    } else {
+      try session.setCategory(category, options: sessionOptions)
+    }
   }
 
   private func activateSession() throws {

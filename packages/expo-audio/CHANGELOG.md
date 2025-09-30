@@ -8,9 +8,69 @@
 
 ### 🐛 Bug fixes
 
-- [Android] Fix regression in playing bundled assets in production. ([#38928](https://github.com/expo/expo/pull/38928) by [@alanjhughes](https://github.com/alanjhughes))
+- [Android] Fix zero-byte audio recordings after calling `audioRecorder.stop()` ([#39788](https://github.com/expo/expo/pull/39788) by [@hirbod](https://github.com/hirbod))
 
 ### 💡 Others
+
+## 1.0.12 — 2025-09-16
+
+### 🎉 New features
+
+- [Android] Expose MediaRecorder.AudioSource on RecordingOptionsAndroid ([#38271](https://github.com/expo/expo/pull/38271) by [@vipierozan99](https://github.com/vipierozan99))
+
+### 🐛 Bug fixes
+
+- [iOS] Fix setting audio quality for recordings. ([#39705](https://github.com/expo/expo/pull/39705) by [@alanjhughes](https://github.com/alanjhughes))
+
+## 1.0.11 — 2025-09-11
+
+_This version does not introduce any user-facing changes._
+
+## 1.0.10 — 2025-09-08
+
+_This version does not introduce any user-facing changes._
+
+## 1.0.9 — 2025-09-03
+
+### 💡 Others
+
+- [Android] Bump media3 version to 1.8.0. ([#39187](https://github.com/expo/expo/pull/39187) by [@behenate](https://github.com/behenate))
+
+## 1.0.8 — 2025-09-02
+
+_This version does not introduce any user-facing changes._
+
+## 1.0.7 — 2025-08-31
+
+### 🎉 New features
+
+- [iOS] Add keepAudioSessionActive option to prevent session deactivation ([#39250](https://github.com/expo/expo/pull/39250) by [@hirbod](https://github.com/hirbod))
+
+## 1.0.6 — 2025-08-27
+
+_This version does not introduce any user-facing changes._
+
+## 1.0.5 — 2025-08-21
+
+### 🐛 Bug fixes
+
+- Correctly export enum values. ([#38940](https://github.com/expo/expo/pull/38940) by [@alanjhughes](https://github.com/alanjhughes))
+
+### 💡 Others
+
+- Repurpose audio recording tests. ([#38940](https://github.com/expo/expo/pull/38940) by [@alanjhughes](https://github.com/alanjhughes))
+
+## 1.0.4 — 2025-08-21
+
+### 🐛 Bug fixes
+
+- [Android] Emit state update after reload. ([#39003](https://github.com/expo/expo/pull/39003) by [@alanjhughes](https://github.com/alanjhughes))
+
+## 1.0.3 — 2025-08-18
+
+### 🐛 Bug fixes
+
+- [Android] Fix regression in playing bundled assets in production. ([#38928](https://github.com/expo/expo/pull/38928) by [@alanjhughes](https://github.com/alanjhughes))
 
 ## 1.0.2 — 2025-08-16
 
@@ -55,6 +115,7 @@ _This version does not introduce any user-facing changes._
 ### 🎉 New features
 
 - [iOS] Support setting seek tolerences when calling `seekTo` on the player. ([#37669](https://github.com/expo/expo/pull/37669) by [@alanjhughes](https://github.com/alanjhughes))
+- [iOS] Support lock screen controls. ([#37126](https://github.com/expo/expo/pull/37126) by [@alanjhughes](https://github.com/alanjhughes)
 
 ### 🐛 Bug fixes
 

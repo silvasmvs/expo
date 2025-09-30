@@ -32,7 +32,6 @@ describe('server-output', () => {
             EXPO_USE_STATIC: 'server',
             E2E_ROUTER_SRC: 'server',
             E2E_ROUTER_ASYNC: 'development',
-            EXPO_USE_FAST_RESOLVER: 'true',
           },
         });
         console.timeEnd('export-server');
@@ -60,7 +59,6 @@ describe('server-output', () => {
             EXPO_USE_STATIC: 'server',
             E2E_ROUTER_SRC: 'server',
             E2E_ROUTER_ASYNC: 'development',
-            EXPO_USE_FAST_RESOLVER: 'true',
             TEST_SECRET_KEY: 'test-secret-key',
           },
         }),
@@ -81,7 +79,6 @@ describe('server-output', () => {
               EXPO_USE_STATIC: 'server',
               E2E_ROUTER_SRC: 'server',
               E2E_ROUTER_ASYNC: 'development',
-              EXPO_USE_FAST_RESOLVER: 'true',
             },
           }
         );
@@ -91,6 +88,7 @@ describe('server-output', () => {
           'node_modules/.bin/esbuild',
           '--bundle',
           '--format=esm',
+          '--platform=node',
           `--outfile=${path.join(outputDir, 'server/workerd.js')}`,
           path.join(projectRoot, '__e2e__/server/workerd/workerd.mjs'),
         ]);
@@ -261,6 +259,16 @@ describe('server-output', () => {
       expect(res.status).toBe(500);
       expect(res.statusText).toBe('Internal Server Error');
     });
+    it('supports multiple values headers in API routes', async () => {
+      const res = await serverFetchAsync('/api/headers');
+      expect(res.status).toBe(200);
+      expect(res.headers.get('x-custom-header')).toBe('customValue');
+      // Multiple headers with the same name are combined into a single comma-separated value
+      expect(res.headers.get('x-multiple-header')).toBe('value1, value2');
+      // Set-Cookie headers are also combined (they are special case which doesn't work with headers.entries())
+      expect(res.headers.get('set-cookie')).toBe('key1=value1, key2=value2');
+      expect(await res.json()).toEqual({ message: 'ok' });
+    });
     describe('Response.json', () => {
       it('can POST json to a route', async () => {
         const res = await serverFetchAsync('/api/json', {
@@ -329,6 +337,13 @@ describe('server-output', () => {
         await expect(serverFetchAsync('/api/externals').then((r) => r.text())).resolves.toMatchPath(
           'a/b/c'
         );
+      });
+
+      it('supports runtime API', async () => {
+        await expect(serverFetchAsync('/api/runtime').then((r) => r.json())).resolves.toEqual({
+          environment: expect.stringMatching(/production|development/),
+          origin: 'null',
+        });
       });
     }
 

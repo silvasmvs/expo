@@ -49,7 +49,7 @@ import collectDependencies, {
 import { countLinesAndTerminateMap } from './count-lines';
 import { shouldMinify } from './resolveOptions';
 import { ExpoJsOutput, ReconcileTransformSettings } from '../serializer/jsOutput';
-import { importExportPlugin } from '../transform-plugins/import-export-plugin';
+import { importExportPlugin, importExportLiveBindingsPlugin } from '../transform-plugins';
 
 export { JsTransformOptions };
 
@@ -240,18 +240,11 @@ export function applyImportSupport<TFile extends t.File>(
   // NOTE(EvanBacon): This is effectively a replacement for the `@babel/plugin-transform-modules-commonjs`
   // plugin that's running in `@react-native/babel-preset`, but with shared names for inlining requires.
   if (options.experimentalImportSupport === true) {
-    plugins.push(
-      // Ensure the iife "globals" don't have conflicting variables in the module.
-      renameTopLevelModuleVariables,
-      //
-      [
-        importExportPlugin,
-        {
-          ...babelPluginOpts,
-          liveBindings: options.customTransformOptions?.liveBindings !== 'false',
-        },
-      ]
-    );
+    const liveBindings = options.customTransformOptions?.liveBindings !== 'false';
+    plugins.push([
+      liveBindings ? importExportLiveBindingsPlugin : importExportPlugin,
+      { ...babelPluginOpts },
+    ]);
   }
 
   // NOTE(EvanBacon): This can basically never be safely enabled because it doesn't respect side-effects and
@@ -782,7 +775,15 @@ export async function transform(
 }
 
 export function getCacheKey(config: JsTransformerConfig): string {
-  const { babelTransformerPath, minifierPath, ...remainingConfig } = config;
+  const {
+    // The `expo_customTransformerPath` from `./supervising-transform-worker` should not participate be part of the cache key
+    expo_customTransformerPath: _customTransformerPath,
+    babelTransformerPath,
+    minifierPath,
+    // Pull out of the cache key to prevent accidental cache invalidation.
+    asyncRequireModulePath,
+    ...remainingConfig
+  } = config;
 
   // TODO(@kitten): We can now tie this into `@expo/metro`, which could also simply export a static version export
   const filesKey = getMetroCacheKey([

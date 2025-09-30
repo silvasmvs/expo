@@ -28,6 +28,7 @@ import androidx.media3.exoplayer.hls.HlsMediaSource
 import androidx.media3.exoplayer.smoothstreaming.SsMediaSource
 import androidx.media3.exoplayer.source.MediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import expo.modules.audio.service.AudioControlsService
 import expo.modules.interfaces.permissions.Permissions
 import expo.modules.kotlin.Promise
 import expo.modules.kotlin.exception.Exceptions
@@ -256,11 +257,13 @@ class AudioModule : Module() {
         recorders.values.forEach {
           it.stopRecording()
         }
+
+        AudioControlsService.clearSession()
       }
     }
 
     Class(AudioPlayer::class) {
-      Constructor { source: AudioSource?, updateInterval: Double ->
+      Constructor { source: AudioSource?, updateInterval: Double, keepAudioSessionActive: Boolean ->
         val mediaSource = createMediaItem(source)
         runOnMain {
           val player = AudioPlayer(
@@ -405,6 +408,24 @@ class AudioModule : Module() {
               }
             }
           }
+        }
+      }
+
+      Function("setActiveForLockScreen") { ref: AudioPlayer, active: Boolean, metadata: Metadata? ->
+        runOnMain {
+          ref.setActiveForLockScreen(active, metadata)
+        }
+      }
+
+      Function("updateLockScreenMetadata") { ref: AudioPlayer, metadata: Metadata ->
+        runOnMain {
+          ref.updateLockScreenMetadata(metadata)
+        }
+      }
+
+      Function("clearLockScreenControls") { ref: AudioPlayer ->
+        runOnMain {
+          ref.clearLockScreenControls()
         }
       }
 

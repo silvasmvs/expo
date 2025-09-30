@@ -1,14 +1,56 @@
-export type CreateOptions = {
+export type FileCreateOptions = {
   /**
    * Whether to create intermediate directories if they do not exist.
    * @default false
    */
   intermediates?: boolean;
   /**
-   * Whether to overwrite the file or directory if it exists.
+   * Whether to overwrite the file if it exists.
    * @default false
    */
   overwrite?: boolean;
+};
+
+export enum EncodingType {
+  /**
+   * Standard encoding format.
+   */
+  UTF8 = 'utf8',
+  /**
+   * Binary, radix-64 representation.
+   */
+  Base64 = 'base64',
+}
+
+export type FileWriteOptions = {
+  /**
+   * The encoding format to use when writing the file.
+   * @default FileSystem.EncodingType.UTF8
+   */
+  encoding?: EncodingType | 'utf8' | 'base64';
+};
+
+export type DirectoryCreateOptions = {
+  /**
+   * Whether to create intermediate directories if they do not exist.
+   * @default false
+   */
+  intermediates?: boolean;
+  /**
+   * Whether to overwrite the directory if it exists.
+   * @default false
+   */
+  overwrite?: boolean;
+  /**
+   * This flag controls whether the `create` operation is idempotent
+   * (safe to call multiple times without error).
+   *
+   * If `true`, creating a file or directory that already exists will succeed silently.
+   * If `false`, an error will be thrown when the target already exists.
+   *
+   * @default false
+   */
+  idempotent?: boolean;
 };
 
 export declare class Directory {
@@ -48,9 +90,9 @@ export declare class Directory {
   /**
    * Creates a directory that the current uri points to.
    *
-   * @throws Error if the containing folder doesn't exist, the application has no read access to it or the directory (or a file with the same path) already exists.
+   * @throws Error if the containing folder doesn't exist, the application has no read access to it or the directory (or a file with the same path) already exists (unless `idempotent` is `true`).
    */
-  create(options?: CreateOptions): void;
+  create(options?: DirectoryCreateOptions): void;
 
   createFile(name: string, mimeType: string | null): File;
 
@@ -67,6 +109,11 @@ export declare class Directory {
   move(destination: Directory | File): void;
 
   /**
+   * Renames a directory.
+   */
+  rename(newName: string): void;
+
+  /**
    * @hidden
    * Lists the contents of a directory. Should not be used directly, as it returns a list of paths.
    * This function is internal and will be removed in the future (when returning arrays of shared objects is supported).
@@ -79,9 +126,11 @@ export declare class Directory {
   list(): (Directory | File)[];
 
   /**
-   * Retrieves an object containing properties of a directory
+   * Retrieves an object containing properties of a directory.
+   *
    * @throws Error If the application does not have read access to the directory, or if the path does not point to a directory (e.g., it points to a file).
-   * @returns An object with directory metadata (e.g., size, creation date, etc.).
+   *
+   * @returns An object with directory metadata (for example, size, creation date, and so on).
    */
   info(): DirectoryInfo;
 
@@ -91,10 +140,12 @@ export declare class Directory {
   size: number | null;
 
   /**
-   * @platform android
    * A static method that opens a file picker to select a directory.
+   *
+   * On iOS, the selected directory grants temporary read and write access for the current app session only. After the app restarts, you must prompt the user again to regain access.
+   *
    * @param initialUri An optional uri pointing to an initial folder on which the directory picker is opened.
-   * @returns a `Directory` instance. The underlying uri will be a content uri on Android.
+   * @returns a `Directory` instance. On Android, the underlying uri will be a content URI.
    */
   static pickDirectoryAsync(initialUri?: string): Promise<Directory>;
 }
@@ -106,6 +157,16 @@ export type DownloadOptions = {
   headers?: {
     [key: string]: string;
   };
+  /**
+   * This flag controls whether the `download` operation is idempotent
+   * (safe to call multiple times without error).
+   *
+   * If `true`, downloading a file that already exists overwrites the previous one.
+   * If `false`, an error is thrown when the target file already exists.
+   *
+   * @default false
+   */
+  idempotent?: boolean;
 };
 
 /**
@@ -146,7 +207,7 @@ export declare class File {
    * Retrieves content of the file as base64.
    * @returns A promise that resolves with the contents of the file as a base64 string.
    */
-  base64(): string;
+  base64(): Promise<string>;
 
   /**
    * Retrieves content of the file as base64.
@@ -156,13 +217,13 @@ export declare class File {
 
   /**
    * Retrieves byte content of the entire file.
-   * @returns A promise that resolves with the contents of the file as a Uint8Array.
+   * @returns A promise that resolves with the contents of the file as a `Uint8Array`.
    */
   bytes(): Promise<Uint8Array<ArrayBuffer>>;
 
   /**
    * Retrieves byte content of the entire file.
-   * @returns A promise that resolves with the contents of the file as a Uint8Array.
+   * @returns The contents of the file as a `Uint8Array`.
    */
   bytesSync(): Uint8Array;
 
@@ -170,7 +231,7 @@ export declare class File {
    * Writes content to the file.
    * @param content The content to write into the file.
    */
-  write(content: string | Uint8Array): void;
+  write(content: string | Uint8Array, options: FileWriteOptions): void;
 
   /**
    * Deletes a file.
@@ -181,8 +242,8 @@ export declare class File {
 
   /**
    * Retrieves an object containing properties of a file
-   * @throws Error If the application does not have read access to the file, or if the path does not point to a file (e.g., it points to a directory).
-   * @returns An object with file metadata (e.g., size, creation date, etc.).
+   * @throws Error If the application does not have read access to the file, or if the path does not point to a file (for example, it points to a directory).
+   * @returns An object with file metadata (for example, size, creation date, and so on).
    */
   info(options?: InfoOptions): FileInfo;
 
@@ -197,7 +258,7 @@ export declare class File {
    *
    * @throws Error if the containing folder doesn't exist, the application has no read access to it or the file (or directory with the same path) already exists.
    */
-  create(options?: CreateOptions): void;
+  create(options?: FileCreateOptions): void;
 
   /**
    * Copies a file.
@@ -210,16 +271,32 @@ export declare class File {
   move(destination: Directory | File): void;
 
   /**
-   * Returns a FileHandle object that can be used to read and write data to the file.
+   * Renames a file.
+   */
+  rename(newName: string): void;
+
+  /**
+   * Returns A `FileHandle` object that can be used to read and write data to the file.
    * @throws Error if the file does not exist or cannot be opened.
    */
   open(): FileHandle;
 
   /**
    * A static method that downloads a file from the network.
+   *
+   * On Android, the response body streams directly into the target file. If the download fails after
+   * it starts, a partially written file may remain at the destination. On iOS, the download first
+   * completes in a temporary location and the file is moved into place only after success, so no
+   * file is left behind when the request fails.
+   *
    * @param url - The URL of the file to download.
    * @param destination - The destination directory or file. If a directory is provided, the resulting filename will be determined based on the response headers.
-   * @returns A promise that resolves to the downloaded file.
+   * @param options - Download options. When the destination already contains a file, the promise rejects with a `DestinationAlreadyExists` error unless `options.idempotent` is set to `true`. With `idempotent: true`, the download overwrites the existing file instead of failing.
+   *
+   * @returns A promise that resolves to the downloaded file. When the server responds with
+   * a non-2xx HTTP status, the promise rejects with an `UnableToDownload` error whose
+   * message includes the status code. No file is created in that scenario.
+   *
    * @example
    * ```ts
    * const file = await File.downloadFileAsync("https://example.com/image.png", new Directory(Paths.document));
@@ -232,13 +309,15 @@ export declare class File {
   ): Promise<File>;
 
   /**
-   * @platform android
-   * A static method that opens a file picker to select a single file of specified type.
-   * @param initialUri An optional uri pointing to an initial folder on which the file picker is opened.
+   * A static method that opens a file picker to select a single file of specified type. On iOS, it returns a temporary copy of the file leaving the original file untouched.
+   *
+   * Selecting multiple files is not supported yet.
+   *
+   * @param initialUri An optional URI pointing to an initial folder on which the file picker is opened.
    * @param mimeType A mime type that is used to filter out files that can be picked out.
-   * @returns a `File` instance.
+   * @returns A `File` instance or an array of `File` instances.
    */
-  static pickFileAsync(initialUri?: string, mimeType?: string): Promise<File>;
+  static pickFileAsync(initialUri?: string, mimeType?: string): Promise<File | File[]>;
 
   /**
    * A size of the file in bytes. 0 if the file does not exist, or it cannot be read.
@@ -323,6 +402,7 @@ export type FileInfo = {
 export type InfoOptions = {
   /**
    * Whether to return the MD5 hash of the file.
+   *
    * @default false
    */
   md5?: boolean;

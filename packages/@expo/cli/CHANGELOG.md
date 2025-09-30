@@ -6,9 +6,134 @@
 
 ### 🎉 New features
 
+- Added support for cli command extension in expo modules ([#39598](https://github.com/expo/expo/pull/39598) by [@chrfalch](https://github.com/chrfalch))
+- Add support for server data loaders in development ([#39570](https://github.com/expo/expo/pull/39570) by [@hassankhan](https://github.com/hassankhan))
+
 ### 🐛 Bug fixes
 
+- fix launching apps on Android emulators where `hw.keyboard = no` ([#34677](https://github.com/expo/expo/pull/34677) by [@DimitarNestorov](https://github.com/DimitarNestorov))
+- only skip dependency validation for `EXPO_NO_DEPENDENCY_VALIDATION=1` ([#40043](https://github.com/expo/expo/pull/40043) by [@kitten](https://github.com/kitten))
+
 ### 💡 Others
+
+- fix typo in CLI error message when `expo-router` is not installed. ([#36608](https://github.com/expo/expo/pull/36608) by [@abraj](https://github.com/abraj))
+- Bump to `@expo/metro@~54.0.0` ([#39800](https://github.com/expo/expo/pull/39800) by [@kitten](https://github.com/kitten))
+- Update usage of `@expo/server` API ([#39894](https://github.com/expo/expo/pull/39894) by [@kitten](https://github.com/kitten))
+
+### ⚠️ Notices
+
+- Added support for React Native 0.82.x. ([#39678](https://github.com/expo/expo/pull/39678) by [@gabrieldonadel](https://github.com/gabrieldonadel))
+
+## 54.0.6 — 2025-09-16
+
+### 💡 Others
+
+- Added MCP tunnel integration. ([#39392](https://github.com/expo/expo/pull/39392) by [@kudo](https://github.com/kudo))
+- Allow `experiments.autolinkingModuleResolution` to apply to web bundling ([#39701](https://github.com/expo/expo/pull/39701) by [@kitten](https://github.com/kitten))
+
+## 54.0.5 — 2025-09-13
+
+### 🐛 Bug fixes
+
+- fix undefined logs being printed. ([#39645](https://github.com/expo/expo/pull/39645) by [@EvanBacon](https://github.com/EvanBacon))
+- Prevent iOS device builds from being remotely cached ([#39621](https://github.com/expo/expo/pull/39621) by [@gabrieldonadel](https://github.com/gabrieldonadel))
+
+## 54.0.4 — 2025-09-12
+
+_This version does not introduce any user-facing changes._
+
+## 54.0.3 — 2025-09-12
+
+_This version does not introduce any user-facing changes._
+
+## 54.0.2 — 2025-09-11
+
+### 🐛 Bug fixes
+
+- Fix fallback resolution for modules that failed to hoist (inside `expo` or `expo-router`'s child `node_modules` folder) ([#39581](https://github.com/expo/expo/pull/39581) by [@kitten](https://github.com/kitten))
+
+### 💡 Others
+
+- Replace usage of metro internals in `instantiateMetro` with `Terminal.log` ([#39531](https://github.com/expo/expo/pull/39531) by [@robhogan](https://github.com/robhogan))
+- Don't enforce `@expo/metro-runtime` for web exports anymore ([#39603](https://github.com/expo/expo/pull/39603) by [@kitten](https://github.com/kitten))
+
+## 54.0.1 — 2025-09-10
+
+_This version does not introduce any user-facing changes._
+
+## 54.0.0 — 2025-09-10
+
+### 💡 Others
+
+- Apply upstream changes to optional require runtime fork ([#39473](https://github.com/expo/expo/pull/39473) by [@kitten](https://github.com/kitten))
+- Fix fast refresh with live bindings by applying getter exception and always using forked module system ([#39525](https://github.com/expo/expo/pull/39525) by [@kitten](https://github.com/kitten))
+
+## 0.26.9 — 2025-09-08
+
+### 🐛 Bug fixes
+
+- Fix Expo Go docs link in ExpoGoInstaller ([#39394](https://github.com/expo/expo/pull/39394) by [@amandeepmittal](https://github.com/amandeepmittal))
+- Fix UTF-8 characters in project path causing `setHeader` error in Metro middleware ([#39285](https://github.com/expo/expo/pull/39285) by [@HMYang33](https://github.com/HMYang33))
+
+## 0.26.8 — 2025-09-03
+
+### 🎉 New features
+
+- [web] add matcher support for server middleware ([#39225](https://github.com/expo/expo/pull/39225) by [@hassankhan](https://github.com/hassankhan))
+
+### 🐛 Bug fixes
+
+- Parse and print code frames above import stack for native bundling errors ([#39150](https://github.com/expo/expo/pull/39150) by [@krystofwoldrich](https://github.com/krystofwoldrich))
+
+## 0.26.7 — 2025-09-02
+
+### 🐛 Bug fixes
+
+- Fix unnecessary version warning when running prebuild for prerelease versions. ([#39298](https://github.com/expo/expo/pull/39298) by [@behenate](https://github.com/behenate))
+
+### 💡 Others
+
+- Promote buildCacheProvider to stable ([#39297](https://github.com/expo/expo/pull/39297) by [@gabrieldonadel](https://github.com/gabrieldonadel))
+
+## 0.26.6 — 2025-08-31
+
+_This version does not introduce any user-facing changes._
+
+## 0.26.5 — 2025-08-28
+
+### 💡 Others
+
+- Bump to `@react-native/dev-middleware@0.81.1` ([#39206](https://github.com/expo/expo/pull/39206) by [@kitten](https://github.com/kitten))
+
+## 0.26.4 — 2025-08-27
+
+### 💡 Others
+
+- Remove unused `@babel/runtime` dependency from CLI ([#39040](https://github.com/expo/expo/pull/39040) by [@kitten](https://github.com/kitten))
+
+## 0.26.3 — 2025-08-25
+
+### 💡 Others
+
+- Prevent `EXPO_USE_FAST_RESOLVER` from being force enabled for other experiments ([#39073](https://github.com/expo/expo/pull/39073) by [@kitten](https://github.com/kitten))
+
+## 0.26.2 — 2025-08-21
+
+### 💡 Others
+
+- Replace `EXPO_USE_STICKY_RESOLVER` with `experiments.autolinkingModuleResolution` in app config ([#39044](https://github.com/expo/expo/pull/39044) by [@kitten](https://github.com/kitten))
+
+## 0.26.1 — 2025-08-21
+
+### 💡 Others
+
+- Apply supervisor transformer that wraps a user-configured custom transformer. This annotates initialization errors and enforces a single Metro version ([#38961](https://github.com/expo/expo/pull/38961) by [@kitten](https://github.com/kitten))
+
+## 0.26.0 — 2025-08-19
+
+### 🎉 New features
+
+- Render errors with multiple stacks in Metro Dev Server terminal ([#38871](https://github.com/expo/expo/pull/38871) by [@krystofwoldrich](https://github.com/krystofwoldrich))
 
 ## 0.25.2 — 2025-08-16
 
@@ -45,6 +170,7 @@
 
 ### 🐛 Bug fixes
 
+- Fix caching across devices. ([#38476](https://github.com/expo/expo/pull/38476) by [@EvanBacon](https://github.com/EvanBacon))
 - Fix DOM component metadata overwriting causing WebView 404s after EAS updates. ([#38290](https://github.com/expo/expo/pull/38290) by [@danoc](https://github.com/danoc))
 - Support `--output-dir` being a directory outside of the project root. ([#38260](https://github.com/expo/expo/pull/38260) by [@EvanBacon](https://github.com/EvanBacon))
 - Update error message for ngrok ([#22469](https://github.com/expo/expo/pull/22469) by [@russorat](https://github.com/russorat))

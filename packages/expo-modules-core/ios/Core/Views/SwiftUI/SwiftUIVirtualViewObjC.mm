@@ -181,7 +181,7 @@ static std::unordered_map<std::string, expo::ExpoViewComponentDescriptor::Flavor
   // when a VirtualView inserted to a standard UIView.
   // We use this call point here for sanity check.
   @throw [NSException exceptionWithName:@"SwiftUIVirtualViewException"
-                                 reason:@"A SwiftUI view is inserted as a child of a standard UIView. Please check that you have wrapped the SwiftUI view in an WithHostingView."
+                                 reason:@"A SwiftUI view is inserted as a child of a standard UIView. Double check that in JSX you have wrapped your component with `<Host>` from '@expo/ui/swift-ui'."
                                userInfo:nil];
   return NO;
 }
@@ -354,6 +354,15 @@ static std::unordered_map<std::string, expo::ExpoViewComponentDescriptor::Flavor
 {
   if (_state) {
     _state->updateState(expo::ExpoViewState(width, height));
+  }
+}
+
+- (void)setStyleSize:(nullable NSNumber *)width height:(nullable NSNumber *)height
+{
+  if (_state) {
+    float widthValue = width ? [width floatValue] : std::numeric_limits<float>::quiet_NaN();
+    float heightValue = height ? [height floatValue] : std::numeric_limits<float>::quiet_NaN();
+    _state->updateState(expo::ExpoViewState::withStyleDimensions(widthValue, heightValue));
   }
 }
 

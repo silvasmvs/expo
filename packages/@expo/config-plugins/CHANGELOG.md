@@ -6,9 +6,39 @@
 
 ### 🎉 New features
 
+- add functions for android resource name validation ([#39882](https://github.com/expo/expo/pull/39882) by [@vonovak](https://github.com/vonovak))
+
 ### 🐛 Bug fixes
 
 ### 💡 Others
+
+## 54.0.1 — 2025-09-11
+
+_This version does not introduce any user-facing changes._
+
+## 54.0.0 — 2025-09-10
+
+_This version does not introduce any user-facing changes._
+
+## 11.0.7 — 2025-09-02
+
+_This version does not introduce any user-facing changes._
+
+## 11.0.6 — 2025-08-31
+
+_This version does not introduce any user-facing changes._
+
+## 11.0.5 — 2025-08-27
+
+_This version does not introduce any user-facing changes._
+
+## 11.0.4 — 2025-08-25
+
+_This version does not introduce any user-facing changes._
+
+## 11.0.3 — 2025-08-19
+
+_This version does not introduce any user-facing changes._
 
 ## 11.0.2 — 2025-08-16
 

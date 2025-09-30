@@ -10,6 +10,34 @@
 
 ### 💡 Others
 
+## 0.15.1 — 2025-09-16
+
+### 🐛 Bug fixes
+
+- Fixed `expoConfigExternalFile` does not return normalized relative paths. ([#39708](https://github.com/expo/expo/pull/39708) by [@kudo](https://github.com/kudo))
+
+## 0.15.0 — 2025-09-10
+
+### 💡 Others
+
+- Remove dependency on `find-up` ([#39470](https://github.com/expo/expo/pull/39470) by [@kitten](https://github.com/kitten))
+
+## 0.14.6 — 2025-09-02
+
+_This version does not introduce any user-facing changes._
+
+## 0.14.5 — 2025-08-31
+
+_This version does not introduce any user-facing changes._
+
+## 0.14.4 — 2025-08-27
+
+_This version does not introduce any user-facing changes._
+
+## 0.14.3 — 2025-08-25
+
+_This version does not introduce any user-facing changes._
+
 ## 0.14.2 — 2025-08-16
 
 _This version does not introduce any user-facing changes._

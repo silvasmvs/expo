@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.EXPO_DEBUG = exports.INTERNAL_CALLSITES_REGEX = void 0;
+exports.EXPO_DEBUG = exports.INTERNAL_CALLSITES_REGEX = exports.internal_supervisingTransformerPath = exports.unstable_transformerPath = void 0;
 exports.createStableModuleIdFactory = createStableModuleIdFactory;
 exports.getDefaultConfig = getDefaultConfig;
 // Copyright 2023-present 650 Industries (Expo). All rights reserved.
@@ -29,6 +29,7 @@ const filePath_1 = require("./utils/filePath");
 const setOnReadonly_1 = require("./utils/setOnReadonly");
 const debug = require('debug')('expo:metro:config');
 let hasWarnedAboutExotic = false;
+let hasWarnedAboutReactNative = false;
 // Patch Metro's graph to support always parsing certain modules. This enables
 // things like Tailwind CSS which update based on their own heuristics.
 function patchMetroGraphToSupportUncachedModules() {
@@ -132,12 +133,18 @@ function getDefaultConfig(projectRoot, { mode, isCSSEnabled = true, unstable_bef
         hasWarnedAboutExotic = true;
         console.log(chalk_1.default.gray(`\u203A Feature ${chalk_1.default.bold `EXPO_USE_EXOTIC`} has been removed in favor of the default transformer.`));
     }
-    const reactNativePath = path_1.default.dirname((0, resolve_from_1.default)(projectRoot, 'react-native/package.json'));
+    const reactNativePath = path_1.default.dirname(resolve_from_1.default.silent(projectRoot, 'react-native/package.json') ?? 'react-native/package.json');
+    if (reactNativePath === 'react-native' && !hasWarnedAboutReactNative) {
+        hasWarnedAboutReactNative = true;
+        console.log(chalk_1.default.yellow(`\u203A Could not resolve react-native! Is it installed and a project dependency?`));
+    }
     const sourceExtsConfig = { isTS: true, isReact: true, isModern: true };
     const sourceExts = (0, paths_1.getBareExtensions)([], sourceExtsConfig);
     // Add support for cjs (without platform extensions).
     sourceExts.push('cjs');
     const reanimatedVersion = getPkgVersion(projectRoot, 'react-native-reanimated');
+    const workletsVersion = getPkgVersion(projectRoot, 'react-native-worklets');
+    const babelRuntimeVersion = getPkgVersion(projectRoot, '@babel/runtime');
     let sassVersion = null;
     if (isCSSEnabled) {
         sassVersion = getPkgVersion(projectRoot, 'sass');
@@ -145,7 +152,18 @@ function getDefaultConfig(projectRoot, { mode, isCSSEnabled = true, unstable_bef
         // when sass isn't installed.
         sourceExts.push('scss', 'sass', 'css');
     }
-    const pkg = (0, config_1.getPackageJson)(projectRoot);
+    let pkg;
+    try {
+        pkg = (0, config_1.getPackageJson)(projectRoot);
+    }
+    catch (error) {
+        if (error && error.name === 'ConfigError') {
+            console.log(chalk_1.default.yellow(`\u203A Could not find a package.json at the project root! ("${projectRoot}")`));
+        }
+        else {
+            throw error;
+        }
+    }
     const watchFolders = (0, getWatchFolders_1.getWatchFolders)(projectRoot);
     const nodeModulesPaths = (0, getModulesPaths_1.getModulesPaths)(projectRoot);
     if (env_1.env.EXPO_DEBUG) {
@@ -161,6 +179,8 @@ function getDefaultConfig(projectRoot, { mode, isCSSEnabled = true, unstable_bef
         console.log(`- Node Module Paths: ${nodeModulesPaths.join(', ')}`);
         console.log(`- Sass: ${sassVersion}`);
         console.log(`- Reanimated: ${reanimatedVersion}`);
+        console.log(`- Worklets: ${workletsVersion}`);
+        console.log(`- Babel Runtime: ${babelRuntimeVersion}`);
         console.log();
     }
     const { 
@@ -171,6 +191,7 @@ function getDefaultConfig(projectRoot, { mode, isCSSEnabled = true, unstable_bef
         root: path_1.default.join(os_1.default.tmpdir(), 'metro-cache'),
     });
     const serverRoot = (0, paths_1.getMetroServerRoot)(projectRoot);
+    const routerPackageRoot = resolve_from_1.default.silent(projectRoot, 'expo-router');
     // Merge in the default config from Metro here, even though loadConfig uses it as defaults.
     // This is a convenience for getDefaultConfig use in metro.config.js, e.g. to modify assetExts.
     const metroConfig = mergeConfig(metroDefaultValues, {
@@ -193,6 +214,11 @@ function getDefaultConfig(projectRoot, { mode, isCSSEnabled = true, unstable_bef
                 .filter((assetExt) => !sourceExts.includes(assetExt)),
             sourceExts,
             nodeModulesPaths,
+            blockList: [
+                // .expo/types contains generated declaration files which are not and should not be processed by Metro.
+                // This prevents unwanted fast refresh on the declaration files changes.
+                /\.expo[\\/]types/,
+            ].concat(metroDefaultValues.resolver.blockList ?? []),
         },
         cacheStores: [cacheStore],
         watcher: {
@@ -224,16 +250,16 @@ function getDefaultConfig(projectRoot, { mode, isCSSEnabled = true, unstable_bef
                     preModules.push(stdRuntime);
                 }
                 else {
-                    debug('@expo/metro-runtime not found, this may cause issues');
+                    debug('"expo/src/winter" not found, this may cause issues');
                 }
                 // We need to shift this to be the first module so web Fast Refresh works as expected.
                 // This will only be applied if the module is installed and imported somewhere in the bundle already.
-                const metroRuntime = resolve_from_1.default.silent(projectRoot, '@expo/metro-runtime');
+                const metroRuntime = getExpoMetroRuntimeOptional(projectRoot);
                 if (metroRuntime) {
                     preModules.push(metroRuntime);
                 }
                 else {
-                    debug('@expo/metro-runtime not found, this may cause issues');
+                    debug('"@expo/metro-runtime" not found, this may cause issues');
                 }
                 return preModules;
             },
@@ -262,22 +288,26 @@ function getDefaultConfig(projectRoot, { mode, isCSSEnabled = true, unstable_bef
             // Custom: These are passed to `getCacheKey` and ensure invalidation when the version changes.
             unstable_renameRequire: false,
             // @ts-expect-error: not on type.
+            _expoRouterPath: routerPackageRoot ? path_1.default.relative(serverRoot, routerPackageRoot) : undefined,
             postcssHash: (0, postcss_1.getPostcssConfigHash)(projectRoot),
-            browserslistHash: pkg.browserslist
-                ? (0, metro_cache_1.stableHash)(JSON.stringify(pkg.browserslist)).toString('hex')
+            browserslistHash: pkg?.browserslist
+                ? (0, metro_cache_1.stableHash)(JSON.stringify(pkg?.browserslist)).toString('hex')
                 : null,
             sassVersion,
-            // Ensure invalidation when the version changes due to the Babel plugin.
+            // Ensure invalidation when the version changes due to the Reanimated and Worklets Babel plugins.
             reanimatedVersion,
+            workletsVersion,
             // Ensure invalidation when using identical projects in monorepos
             _expoRelativeProjectRoot: path_1.default.relative(serverRoot, projectRoot),
             // `require.context` support
             unstable_allowRequireContext: true,
             allowOptionalDependencies: true,
             babelTransformerPath: require.resolve('./babel-transformer'),
-            // TODO: The absolute path invalidates caching across devices.
+            // TODO: The absolute path invalidates caching across devices. To account for this, we remove the `asyncRequireModulePath` from the cache key but that means any changes to the file will not invalidate the cache.
             asyncRequireModulePath: require.resolve('./async-require'),
             assetRegistryPath: '@react-native/assets-registry/registry',
+            // Determines the minimum version of `@babel/runtime`, so we default it to the project's installed version of `@babel/runtime`
+            enableBabelRuntime: babelRuntimeVersion ?? undefined,
             // hermesParser: true,
             getTransformOptions: async () => ({
                 transform: {
@@ -289,6 +319,9 @@ function getDefaultConfig(projectRoot, { mode, isCSSEnabled = true, unstable_bef
     });
     return (0, withExpoSerializers_1.withExpoSerializers)(metroConfig, { unstable_beforeAssetSerializationPlugins });
 }
+/** Use to access the Expo Metro transformer path */
+exports.unstable_transformerPath = require.resolve('./transform-worker/transform-worker');
+exports.internal_supervisingTransformerPath = require.resolve('./transform-worker/supervising-transform-worker');
 // re-export for legacy cases.
 exports.EXPO_DEBUG = env_1.env.EXPO_DEBUG;
 function getPkgVersion(projectRoot, pkgName) {
@@ -314,5 +347,21 @@ function findUpPackageJson(cwd) {
         return found;
     }
     return findUpPackageJson(path_1.default.dirname(cwd));
+}
+function getExpoMetroRuntimeOptional(projectRoot) {
+    const EXPO_METRO_RUNTIME = '@expo/metro-runtime';
+    let metroRuntime = resolve_from_1.default.silent(projectRoot, EXPO_METRO_RUNTIME);
+    if (!metroRuntime) {
+        // NOTE(@kitten): While `@expo/metro-runtime` is a peer, auto-installing this peer is valid and expected
+        // When it's auto-installed it may not be hoisted or not accessible from the project root, so we need to
+        // try to also resolve it via `expo-router`, where it's a required peer
+        const baseExpoRouter = resolve_from_1.default.silent(projectRoot, 'expo-router/package.json');
+        // When expo-router isn't installed, however, we instead try to resolve it from `expo`, where it's an
+        // optional peer dependency
+        metroRuntime = baseExpoRouter
+            ? resolve_from_1.default.silent(baseExpoRouter, EXPO_METRO_RUNTIME)
+            : resolve_from_1.default.silent(require.resolve('expo/package.json'), EXPO_METRO_RUNTIME);
+    }
+    return metroRuntime;
 }
 //# sourceMappingURL=ExpoMetroConfig.js.map

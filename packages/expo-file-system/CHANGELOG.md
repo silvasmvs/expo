@@ -6,11 +6,84 @@
 
 ### 🎉 New features
 
+- Add write options for base64 encoded bytes. ([#39963](https://github.com/expo/expo/pull/39963) by [@aleqsio](https://github.com/aleqsio))
+- add `idempotent` option to `downloadFileAsync` ([#39681](https://github.com/expo/expo/pull/39681) by [@vonovak](https://github.com/vonovak))
+
+### 🐛 Bug fixes
+
+- Fix typedoc in the File class. ([#40064](https://github.com/expo/expo/pull/40064) by [@aleqsio](https://github.com/aleqsio))
+- [Android] Fix getContentUri. ([#40001](https://github.com/expo/expo/pull/40001) by [@aleqsio](https://github.com/aleqsio))
+
+### 💡 Others
+
+## 19.0.14 — 2025-09-13
+
+_This version does not introduce any user-facing changes._
+
+## 19.0.13 — 2025-09-12
+
+### 🐛 Bug fixes
+
+- [Android] Fix incorrect AndroidManifest.xml location. ([#39134](https://github.com/expo/expo/pull/39134) by [@robertying](https://github.com/robertying))
+
+## 19.0.12 — 2025-09-11
+
+_This version does not introduce any user-facing changes._
+
+## 19.0.11 — 2025-09-10
+
+### 🎉 New features
+
+- [iOS] Add `pickDirectoryAsync` support ([#39210](https://github.com/expo/expo/pull/39210) by [@kosmydel](https://github.com/kosmydel))
+
+### 🐛 Bug fixes
+
+- Add minimal web stub to fix broken imports on web ([#39400](https://github.com/expo/expo/pull/39400) by [@LeonDvlpmnt](https://github.com/LeonDvlpmnt))
+
+## 19.0.10 — 2025-09-08
+
+_This version does not introduce any user-facing changes._
+
+## 19.0.9 — 2025-09-03
+
+### 🎉 New features
+
+- Add stubs for legacy methods imported from "expo-file-system". ([#39244](https://github.com/expo/expo/pull/39244) by [@aleqsio](https://github.com/aleqsio))
+
+### 🐛 Bug fixes
+
+- [iOS] Fix tvOS compile error. ([#39345](https://github.com/expo/expo/pull/39345) by [@douglowder](https://github.com/douglowder))
+
+## 19.0.8 — 2025-09-02
+
+### 🎉 New features
+
+- [iOS] Add `pickFileAsync` support ([#39173](https://github.com/expo/expo/pull/39173) by [@kosmydel](https://github.com/kosmydel))
+
+## 19.0.7 — 2025-08-31
+
+### 🎉 New features
+
+- Add `rename` method for files and directories ([#39138](https://github.com/expo/expo/pull/39138) by [@kosmydel](https://github.com/kosmydel))
+- Add `idempotent` option for creating directories ([#39121](https://github.com/expo/expo/pull/39121) by [@kosmydel](https://github.com/kosmydel))
+
+## 19.0.6 — 2025-08-26
+
+_This version does not introduce any user-facing changes._
+
+## 19.0.5 — 2025-08-25
+
+_This version does not introduce any user-facing changes._
+
+## 19.0.4 — 2025-08-21
+
+_This version does not introduce any user-facing changes._
+
+## 19.0.3 — 2025-08-18
+
 ### 🐛 Bug fixes
 
 - Fixed type definition for `textSync()` to return `string` instead of `Promise<string>` ([#38898](https://github.com/expo/expo/pull/38898) by [@LeonDvlpmnt](https://github.com/LeonDvlpmnt))
-
-### 💡 Others
 
 ## 19.0.2 — 2025-08-16
 
@@ -21,6 +94,7 @@ _This version does not introduce any user-facing changes._
 ### 💡 Others
 
 - Update typings for `typescript@5.9` ([#38833](https://github.com/expo/expo/pull/38833) by [@kitten](https://github.com/kitten))
+- Change Constants to Constant/Property. ([#38926](https://github.com/expo/expo/pull/38926) by [@jakex7](https://github.com/jakex7))
 
 ## 19.0.0 — 2025-08-13
 

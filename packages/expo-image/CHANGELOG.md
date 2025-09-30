@@ -6,9 +6,39 @@
 
 ### 🎉 New features
 
+- [Android] Upgrades Glide to `5.0.5`. ([#39713](https://github.com/expo/expo/pull/39713) by [@lukmccall](https://github.com/lukmccall))
+
 ### 🐛 Bug fixes
 
 ### 💡 Others
+
+## 3.0.8 — 2025-09-11
+
+_This version does not introduce any user-facing changes._
+
+## 3.0.7 — 2025-09-03
+
+### 🐛 Bug fixes
+
+- [iOS] Fix images not displaying in Material Top Tabs navigator. ([#39323](https://github.com/expo/expo/pull/39323) by [@lukmccall](https://github.com/lukmccall))
+
+## 3.0.6 — 2025-09-02
+
+_This version does not introduce any user-facing changes._
+
+## 3.0.5 — 2025-08-31
+
+_This version does not introduce any user-facing changes._
+
+## 3.0.4 — 2025-08-26
+
+### 🐛 Bug fixes
+
+- [Android] Fixed `The method 'getResourceDrawableUri' was expected to be of type static` exception. ([#39143](https://github.com/expo/expo/pull/39143) by [@lukmccall](https://github.com/lukmccall))
+
+## 3.0.3 — 2025-08-25
+
+_This version does not introduce any user-facing changes._
 
 ## 3.0.2 — 2025-08-16
 

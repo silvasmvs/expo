@@ -10,6 +10,34 @@
 
 ### 💡 Others
 
+## 14.0.8 — 2025-09-11
+
+_This version does not introduce any user-facing changes._
+
+## 14.0.7 — 2025-09-02
+
+_This version does not introduce any user-facing changes._
+
+## 14.0.6 — 2025-08-31
+
+_This version does not introduce any user-facing changes._
+
+## 14.0.5 — 2025-08-27
+
+### 🛠 Breaking changes
+
+- [android] improve bitmap rendering for `renderToImageAsync` ([#39118](https://github.com/expo/expo/pull/39118) by [@vonovak](https://github.com/vonovak))
+
+## 14.0.4 — 2025-08-26
+
+### 💡 Others
+
+- Fix types and adjust platform checks. ([#37302](https://github.com/expo/expo/pull/37302) by [@EvanBacon](https://github.com/EvanBacon))
+
+## 14.0.3 — 2025-08-25
+
+_This version does not introduce any user-facing changes._
+
 ## 14.0.2 — 2025-08-16
 
 _This version does not introduce any user-facing changes._

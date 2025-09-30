@@ -174,6 +174,9 @@ export class AudioPlayerWeb extends globalThis.expo.SharedObject {
         this.media.load();
         getStatusFromMedia(this.media, this.id);
     }
+    setActiveForLockScreen(active, metadata) { }
+    updateLockScreenMetadata(metadata) { }
+    clearLockScreenControls() { }
     _createMediaElement() {
         const newSource = getSourceUri(this.src);
         const media = new Audio(newSource);
@@ -289,11 +292,11 @@ export class AudioRecorderWeb extends globalThis.expo.SharedObject {
         return [];
     }
     getCurrentInput() {
-        return {
+        return Promise.resolve({
             type: 'Default',
             name: 'Default',
             uid: 'Default',
-        };
+        });
     }
     async prepareToRecordAsync() {
         return this.setup();

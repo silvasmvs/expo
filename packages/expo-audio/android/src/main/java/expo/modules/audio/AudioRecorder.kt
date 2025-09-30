@@ -125,16 +125,11 @@ class AudioRecorder(
   }
 
   fun stopRecording(): Bundle {
-    val currentFilePath = filePath // Capture file path before reset
-
     try {
       recorder?.stop()
     } finally {
       reset()
     }
-
-    // Auto-prepare for next recording to match iOS/Web behavior
-    prepareRecording(null)
 
     // Emit completion event on the main thread
     appContext?.mainQueue?.launch {
@@ -145,7 +140,7 @@ class AudioRecorder(
           "isFinished" to true,
           "hasError" to false,
           "error" to null,
-          "url" to currentFilePath?.toUri().toString()
+          "url" to filePath?.toUri().toString()
         )
       )
     }
@@ -164,7 +159,6 @@ class AudioRecorder(
     durationAlreadyRecorded = 0
     startTime = 0L
     isPrepared = false
-    filePath = null // Reset file path for next recording
   }
 
   private fun createRecorder(options: RecordingOptions) =
@@ -181,7 +175,7 @@ class AudioRecorder(
       return
     }
     with(recorder) {
-      setAudioSource(MediaRecorder.AudioSource.MIC)
+      setAudioSource(options.audioSource?.toAudioSource() ?: MediaRecorder.AudioSource.MIC)
       if (options.outputFormat != null) {
         setOutputFormat(options.outputFormat.toMediaOutputFormat())
       } else {
@@ -297,13 +291,15 @@ class AudioRecorder(
       throw GetAudioInputNotSupportedException()
     }
 
-    try {
-      // getRoutedDevice() is the most reliable way to return the actual mic input, however it
-      // only returns a valid device when actively recording, and may throw otherwise.
-      // https://developer.android.com/reference/android/media/MediaRecorder#getRoutedDevice()
-      deviceInfo = recorder?.routedDevice
-    } catch (e: java.lang.Exception) {
-      // no-op
+    if (isRecording) {
+      try {
+        // getRoutedDevice() is the most reliable way to return the actual mic input, however it
+        // only returns a valid device when actively recording, and may throw otherwise.
+        // https://developer.android.com/reference/android/media/MediaRecorder#getRoutedDevice()
+        deviceInfo = recorder?.routedDevice
+      } catch (e: java.lang.Exception) {
+        // no-op
+      }
     }
 
     // If no routed device is found try preferred device

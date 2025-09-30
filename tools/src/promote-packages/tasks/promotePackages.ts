@@ -1,5 +1,4 @@
 import chalk from 'chalk';
-import * as semver from 'semver';
 
 import { findPackagesToPromote } from './findPackagesToPromote';
 import { prepareParcels } from './prepareParcels';
@@ -48,23 +47,15 @@ export const promotePackages = new Task<TaskArgs>(
             stdio: requiresOTP ? 'inherit' : undefined,
           });
         }
-        if (pkg.isTemplate()) {
-          const sdkTag = `sdk-${semver.major(pkg.packageVersion)}`;
-          batch.log(
-            '    ',
-            action,
-            yellow(sdkTag),
-            formatVersionChange(versionToReplace, currentVersion)
-          );
-          if (!options.dry) {
-            await Npm.addTagAsync(pkg.packageName, pkg.packageVersion, sdkTag, {
-              stdio: requiresOTP ? 'inherit' : undefined,
-            });
-          }
-        }
 
         // If the local version had any tags assigned, we can drop the old ones.
-        if (options.drop && state.distTags && !state.distTags.includes(options.tag)) {
+        // If assigning `sdk-` tag, don't drop any other tags. This one is additive.
+        if (
+          options.drop &&
+          state.distTags &&
+          !state.distTags.includes(options.tag) &&
+          !options.tag.startsWith('sdk-')
+        ) {
           for (const distTag of state.distTags) {
             batch.log('    ', `Dropping ${yellow(distTag)} tag (${cyan(currentVersion)})...`);
 

@@ -10,7 +10,34 @@
 
 ### 💡 Others
 
+## 16.0.8 — 2025-09-10
+
+### 🐛 Bug fixes
+
+- Fixed `:memory:` path issue when building on Xcode 26. ([#39511](https://github.com/expo/expo/pull/39511) by [@kudo](https://github.com/kudo))
+
+## 16.0.7 — 2025-09-02
+
+_This version does not introduce any user-facing changes._
+
+## 16.0.6 — 2025-08-31
+
+_This version does not introduce any user-facing changes._
+
+## 16.0.5 — 2025-08-27
+
+_This version does not introduce any user-facing changes._
+
+## 16.0.4 — 2025-08-25
+
+_This version does not introduce any user-facing changes._
+
+## 16.0.3 — 2025-08-18
+
+### 💡 Others
+
 - Updated API doc for `loadExtensionAsync()` and `loadExtensionSync()`. ([#38905](https://github.com/expo/expo/pull/38905) by [@kudo](https://github.com/kudo))
+- Change Constants to Constant/Property. ([#38926](https://github.com/expo/expo/pull/38926) by [@jakex7](https://github.com/jakex7))
 
 ## 16.0.2 — 2025-08-16
 

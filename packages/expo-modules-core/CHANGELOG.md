@@ -6,11 +6,125 @@
 
 ### 🎉 New features
 
+- [Android] Adds support for `ArrayBuffer`. ([#39943](https://github.com/expo/expo/pull/39943) by [@lukmccall](https://github.com/lukmccall))
+- [iOS] Introduce ExpoAppDelegateSubscriberManager class ([#40008](https://github.com/expo/expo/pull/40008) by [@gabrieldonadel](https://github.com/gabrieldonadel))
+
 ### 🐛 Bug fixes
+
+- [iOS] Fix NSURL to JSIString conversion returning nil. ([#39567](https://github.com/expo/expo/pull/39567) by [@behenate](https://github.com/behenate))
+- [iOS] Return EXJavaScriptValue from null/undefined in arrays. ([#39872](https://github.com/expo/expo/pull/39872) by [@jakex7](https://github.com/jakex7))
+- Fix SharedObject created with `useReleasingSharedObject` getting destroyed after a fast refresh caused by a change in its dependencies. ([#39753](https://github.com/expo/expo/pull/39753) by [@behenate](https://github.com/behenate))
+
+### 💡 Others
+
+- [Android] Migrated from `kotlinOptions` to `compilerOptions` DSL. ([#39794](https://github.com/expo/expo/pull/39794) by [@huextrat](https://github.com/huextrat))
+- [iOS] Add explicit CallInvoker and CallbackWrapper imports to EXJSIUtils ([#39818](https://github.com/expo/expo/pull/39818) by [@gabrieldonadel](https://github.com/gabrieldonadel))
+- [ios] - Set host dimension synchronously on native ([#40017](https://github.com/expo/expo/pull/40017) by [@nishan](https://github.com/intergalacticspacehighway))
+- [Android] Refactor getDelayLoadAppHandler to use ReactHost ([#40084](https://github.com/expo/expo/pull/40084) by [@gabrieldonadel](https://github.com/gabrieldonadel))
+- [Android] Use module name from `expo-module.config.json`. ([#39985](https://github.com/expo/expo/pull/39985) by [@jakex7](https://github.com/jakex7))
+
+## 3.0.16 — 2025-09-16
+
+### 🎉 New features
+
+- [Android] Starts using precompiled headers to improve build times. ([#39641](https://github.com/expo/expo/pull/39641) by [@lukmccall](https://github.com/lukmccall))
+- Remove `ExpoAppDelegate` inheritance requirement in ExpoReactNativeFactory ([#39417](https://github.com/expo/expo/pull/39417) by [@gabrieldonadel](https://github.com/gabrieldonadel))
+
+### 🐛 Bug fixes
+
+- Fix runtime error due to passing undefined into function that doesnt receive any argument ([#39594](https://github.com/expo/expo/pull/39594) by [@mrevanzak](https://github.com/mrevanzak))
+- Fix build error on Vite due to non-existent import for `TurboModuleRegistry` on web ([#39726](https://github.com/expo/expo/pull/39726) by [@satya164](https://github.com/satya164))
+
+## 3.0.15 — 2025-09-10
+
+### 🐛 Bug fixes
+
+- [Android] Fixes `JNI detected error in application: obj == null` in `ExpoModulesHostObject::get`. ([#39523](https://github.com/expo/expo/pull/39523) by [@lukmccall](https://github.com/lukmccall))
+
+## 3.0.14 — 2025-09-08
+
+### 🐛 Bug fixes
+
+- [Android] Fix type check in the `SharedRef` converter. ([#39446](https://github.com/expo/expo/pull/39446) by [@lukmccall](https://github.com/lukmccall))
+
+### 💡 Others
+
+- improve startup performance by not relying on kotlin reflection. ([#39389](https://github.com/expo/expo/pull/39389) by [@ACHP](https://github.com/ACHP))
+
+## 3.0.13 — 2025-09-04
+
+### 💡 Others
+
+- [Android] Remove some usage of `kotlin.reflect.full.*`. ([#39385](https://github.com/expo/expo/pull/39385) by [@lukmccall](https://github.com/lukmccall))
+
+## 3.0.12 — 2025-09-03
+
+### 💡 Others
+
+- Use new LongLivedObject.h and CallbackWrapper.h headers namespace ([#39344](https://github.com/expo/expo/pull/39344) by [@gabrieldonadel](https://github.com/gabrieldonadel))
+- [iOS] Added `Color` convertible support without passing `AppContext`. ([#39183](https://github.com/expo/expo/pull/39183) by [@aleqsio](https://github.com/aleqsio))
+- Extracted the read permission check from `FileSystemUtilities` ([#39210](https://github.com/expo/expo/pull/39210) by [@kosmydel](https://github.com/kosmydel))
+
+## 3.0.11 — 2025-09-02
+
+### 🎉 New features
+
+- Add `disableForceFlatten` prop to control flattening of display contents views. ([#39262](https://github.com/expo/expo/pull/39262) by [@nishan](https://github.com/intergalacticspacehighway))
+- Add logging from native to JS, compliant with the Logger interface, via `appContext.jsLogger`. ([#39159](https://github.com/expo/expo/pull/39159) by [@behenate](https://github.com/behenate))
+
+### 🐛 Bug fixes
+
+- Fix Color extension on macOS. ([#39280](https://github.com/expo/expo/pull/39280) by [@gabrieldonadel](https://github.com/gabrieldonadel))
+- Fix ErrorManager not receiving events. ([#39290](https://github.com/expo/expo/pull/39290) by [@behenate](https://github.com/behenate))
+
+### 💡 Others
+
+- Fix JavaScriptRuntimeSpec tests ([#39281](https://github.com/expo/expo/pull/39281) by [@gabrieldonadel](https://github.com/gabrieldonadel))
+- Added `appContext` to `ExpoSwiftUI.ViewProps`. ([#39231](https://github.com/expo/expo/pull/39231) by [@kudo](https://github.com/kudo))
+- `requireOptionalNativeModule` will now catch errors which occur while requiring a module. ([#39290](https://github.com/expo/expo/pull/39290) by [@behenate](https://github.com/behenate))
+
+## 3.0.10 — 2025-08-31
+
+_This version does not introduce any user-facing changes._
+
+## 3.0.9 — 2025-08-28
+
+### 🐛 Bug fixes
+
+- [ios] Bring back correct scoping for Expo Go. ([#39186](https://github.com/expo/expo/pull/39186) by [@aleqsio](https://github.com/aleqsio))
+
+## 3.0.8 — 2025-08-27
+
+_This version does not introduce any user-facing changes._
+
+## 3.0.7 — 2025-08-26
+
+### 🐛 Bug fixes
+
+- [Android] Fix ErrorManager not receiving error/warning events on the JS side. ([#39126](https://github.com/expo/expo/pull/39126) by [@behenate](https://github.com/behenate))
+
+## 3.0.6 — 2025-08-25
+
+### 🎉 New features
+
+- [Android] Add new type - `ValueOrUndefined`. ([#39116](https://github.com/expo/expo/pull/39116) by [@lukmccall](https://github.com/lukmccall))
+
+## 3.0.5 — 2025-08-21
+
+_This version does not introduce any user-facing changes._
+
+## 3.0.4 — 2025-08-19
+
+### 🐛 Bug fixes
+
+- [Android] Fix invalid array buffer offset in typed arrays. ([#38958](https://github.com/expo/expo/pull/38958) by [@aleqsio](https://github.com/aleqsio))
+
+## 3.0.3 — 2025-08-18
 
 ### 💡 Others
 
 - [ios] Wrap system color references for dev client. ([#38912](https://github.com/expo/expo/pull/38912) by [@douglowder](https://github.com/douglowder))
+- [Android] Update min, target, and compile SDK versions. ([#38938](https://github.com/expo/expo/pull/38938) by [@alanjhughes](https://github.com/alanjhughes))
 
 ## 3.0.2 — 2025-08-16
 
@@ -45,6 +159,7 @@ _This version does not introduce any user-facing changes._
 
 ### 💡 Others
 
+- Add package exports support. ([#37302](https://github.com/expo/expo/pull/37302) by [@EvanBacon](https://github.com/EvanBacon))
 - [iOS] Cleaned up iOS header files for precompilation ([#38441](https://github.com/expo/expo/pull/38441) by [@chrfalch](https://github.com/chrfalch))
 - [Android] RN 0.81.0: patched some reflection issues after kotlin upgrade ([#38451](https://github.com/expo/expo/pull/38451) by [@chrfalch](https://github.com/chrfalch))
 - Restructure Jest polyfills to not import forbidden platform extension directly. ([#37588](https://github.com/expo/expo/pull/37588) by [@EvanBacon](https://github.com/EvanBacon))

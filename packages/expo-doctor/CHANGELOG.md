@@ -8,7 +8,62 @@
 
 ### 🐛 Bug fixes
 
+- Prevent peer dependency check from warning on peer/regular hybrid dependency ([#39916](https://github.com/expo/expo/pull/39916) by [@kitten](https://github.com/kitten))
+
 ### 💡 Others
+
+## 1.17.7 — 2025-09-11
+
+_This version does not introduce any user-facing changes._
+
+## 1.17.6 — 2025-09-10
+
+### 💡 Others
+
+- Remove `expo-dev-launcher`, `expo-dev-menu`, `expo-dev-menu-interface`, `expo-updates-interface`, and `expo-eas-client` to ignore RN Directory packages ([#39409](https://github.com/expo/expo/pull/39409) by [@kitten](https://github.com/kitten))
+
+## 1.17.5 — 2025-09-04
+
+### 💡 Others
+
+- Use autolinking information to filter out packages that aren't native modules from React Native Directory check ([#39272](https://github.com/expo/expo/pull/39272) by [@kitten](https://github.com/kitten))
+- Warn about dangerous/invalid Metro config entries ([#39384](https://github.com/expo/expo/pull/39384) by [@kitten](https://github.com/kitten))
+
+## 1.17.4 — 2025-09-02
+
+_This version does not introduce any user-facing changes._
+
+## 1.17.3 — 2025-08-31
+
+_This version does not introduce any user-facing changes._
+
+## 1.17.2 — 2025-08-27
+
+### 💡 Others
+
+- Add link to FYI about excluding dependencies from packages validation check. ([#39132](https://github.com/expo/expo/pull/39132) by by [@betomoedano](https://github.com/betomoedano))
+
+## 1.17.1 — 2025-08-25
+
+### 🐛 Bug fixes
+
+- Fix bug for lockfile check in monorepos. ([#39072](https://github.com/expo/expo/pull/39072) by [@entiendonull](https://github.com/entiendonull))
+
+## 1.17.0 — 2025-08-21
+
+### 🎉 New features
+
+- Add EAS platform detection, Android gitignore validation, and .expo gitignore check to project setup. ([#39007](https://github.com/expo/expo/pull/39007) by [@entiendonull](https://github.com/entiendonull))
+
+### 💡 Others
+
+- Inform users of corrupted `node_modules` if autolinking finds duplicates with all identical versions ([#39026](https://github.com/expo/expo/pull/39026) by [@kitten](https://github.com/kitten))
+
+## 1.16.0 — 2025-08-19
+
+### 🎉 New features
+
+- Add check for lock-files. ([#38963](https://github.com/expo/expo/pull/38963) by [@entiendonull](https://github.com/entiendonull))
 
 ## 1.15.1 — 2025-08-16
 

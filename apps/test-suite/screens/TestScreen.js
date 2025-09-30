@@ -16,6 +16,7 @@ const initialState = {
     suites: [],
     path: ['suites'], // Path to current 'children' List in state
   }),
+  selectedModules: [],
   testPortal: null,
   numFailed: 0,
   done: false,
@@ -28,14 +29,14 @@ export default class TestScreen extends React.Component {
   _scrollViewRef = null;
 
   componentDidMount() {
-    const selectionQuery = this.props.route.params?.tests ?? [];
-    const selectedTestNames = selectionQuery.split(' ');
+    const selectionQuery = this.props.route.params?.tests ?? '';
+    const selectedTestNames = selectionQuery.split(/[,\s]/);
 
     // We get test modules here to make sure that React Native will reload this component when tests were changed.
     const selectedModules = getTestModules().filter((m) => selectedTestNames.includes(m.name));
 
     if (!selectedModules.length) {
-      console.log('[TEST_SUITE]', 'No selected modules', selectedTestNames);
+      console.warn('[TEST_SUITE]', 'No selected modules', selectedTestNames);
     }
 
     this._runTests(selectedModules);
@@ -56,14 +57,14 @@ export default class TestScreen extends React.Component {
     });
   };
 
-  _runTests = async (modules) => {
+  _runTests = async (selectedModules) => {
     // Reset results state
-    this.setState(initialState);
+    this.setState({ ...initialState, selectedModules });
 
     const { jasmineEnv, jasmine } = await this._setupJasmine();
 
     await Promise.all(
-      modules.map((m) =>
+      selectedModules.map((m) =>
         m.test(jasmine, {
           setPortalChild: this.setPortalChild,
           cleanupPortal: this.cleanupPortal,
@@ -263,7 +264,16 @@ export default class TestScreen extends React.Component {
       state,
       portalChildShouldBeVisible,
       testPortal,
+      selectedModules,
     } = this.state;
+    if (!selectedModules?.length) {
+      return (
+        <RunnerError>
+          No tests were selected. Please provide a correct query to select tests to run.
+          SelectionQuery: "{this.props.route?.params?.tests}"
+        </RunnerError>
+      );
+    }
     if (testRunnerError) {
       return <RunnerError>{testRunnerError}</RunnerError>;
     }

@@ -10,6 +10,76 @@
 
 ### 💡 Others
 
+- [Android] Remove @UnstableReactNativeAPI annotations. ([#39921](https://github.com/expo/expo/pull/39921) by [@jakex7](https://github.com/jakex7))
+
+## 3.0.11 — 2025-09-10
+
+### 🎉 New features
+
+- [iOS] Add support for playing PHAsset uris. ([#39371](https://github.com/expo/expo/pull/39371) by [@behenate](https://github.com/behenate))
+
+### 💡 Others
+
+- [Web] Allow access to the underlying HTMLVideoElement via the `nativeRef` property. ([#39448](https://github.com/expo/expo/pull/39448) by [@behenate](https://github.com/behenate))
+
+## 3.0.10 — 2025-09-04
+
+### 🐛 Bug fixes
+
+- [Web] Fix fullscreen enter/exit methods and listeners not working in Safari on iOS. ([#39320](https://github.com/expo/expo/pull/39320) by [@behenate](https://github.com/behenate))
+
+## 3.0.9 — 2025-09-03
+
+### 🛠 Breaking changes
+
+- [Android] In order to show the now playing notification, the `supportsBackgroundPlayground` property of the config plugin has to be `true`. ([#38980](https://github.com/expo/expo/pull/38980) by [@kerwanp](https://github.com/kerwanp))
+
+### 🐛 Bug fixes
+
+- [Android] Fix video player stopping playback a few minutes after locking the device. ([#38980](https://github.com/expo/expo/pull/38980) by [@kerwanp](https://github.com/kerwanp))
+
+## 3.0.8 — 2025-09-02
+
+_This version does not introduce any user-facing changes._
+
+## 3.0.7 — 2025-08-28
+
+_This version does not introduce any user-facing changes._
+
+## 3.0.6 — 2025-08-27
+
+### 💡 Others
+
+- [Android] Bump media3 version to 1.8.0. ([#39184](https://github.com/expo/expo/pull/39184) by [@behenate](https://github.com/behenate))
+
+## 3.0.5 — 2025-08-25
+
+### 🛠 Breaking changes
+
+- [Android] Always keep the native controls always enabled in fullscreen mode to mimic iOS. ([#39015](https://github.com/expo/expo/pull/39015) by [@behenate](https://github.com/behenate))
+
+## 3.0.4 — 2025-08-21
+
+### 🎉 New features
+
+- [Web] Add `useAudioNodePlayback` prop. ([#39039](https://github.com/expo/expo/pull/39039) by [@behenate](https://github.com/behenate))
+
+### 🐛 Bug fixes
+
+- [iOS] Fix `sourceLoad` event not being emitted. ([#39023](https://github.com/expo/expo/pull/39023) by [@behenate](https://github.com/behenate))
+- [Web] Fix audio not playing due to conflicting CORS and AudioNode settings. ([#39039](https://github.com/expo/expo/pull/39039) by [@behenate](https://github.com/behenate))
+- [iOS] Background mode playback fix. ([#33706](https://github.com/expo/expo/pull/33706) by [@hromovp](https://github.com/hromovp))
+
+## 3.0.3 — 2025-08-21
+
+### 🎉 New features
+
+- [Android][iOS] Add `keepScreenOnWhilePlaying` property to the player. ([#37137](https://github.com/expo/expo/pull/37137) by [@behenate](https://github.com/behenate))
+
+### 💡 Others
+
+- [Android] Keep the screen on while playback is running by default. ([#37137](https://github.com/expo/expo/pull/37137) by [@behenate](https://github.com/behenate))
+
 ## 3.0.2 — 2025-08-16
 
 _This version does not introduce any user-facing changes._

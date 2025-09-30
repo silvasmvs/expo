@@ -9,21 +9,33 @@ import { DoctorCheck, DoctorCheckParams, DoctorCheckResult } from './checks.type
 import { learnMore } from '../utils/TerminalLink';
 import {
   ExpoExportMissingError,
-  importAutolinkingExportsFromProject,
-} from '../utils/autolinkingExportsLoader';
-import { getVersionedNativeModuleNamesAsync } from '../utils/versionedNativeModules';
+  AutolinkingResolutionsCache,
+  scanNativeModuleResolutions,
+} from '../utils/autolinkingResolutions';
 
-const AUTOLINKING_PLATFORMS = ['android', 'ios'] as const;
+type DoctorCache = AutolinkingResolutionsCache;
 
-export class AutolinkingDependencyDuplicatesCheck implements DoctorCheck {
+export class AutolinkingDependencyDuplicatesCheck implements DoctorCheck<DoctorCache> {
   description = 'Check that no duplicate dependencies are installed';
 
   sdkVersionRange = '>=54.0.0';
 
-  async runAsync({ projectRoot, exp }: DoctorCheckParams): Promise<DoctorCheckResult> {
-    let autolinking: ReturnType<typeof importAutolinkingExportsFromProject>;
+  async runAsync(
+    { projectRoot, exp }: DoctorCheckParams,
+    cache: DoctorCache
+  ): Promise<DoctorCheckResult> {
+    const packagesWithIssues = new Map<string, DependencyResolution>();
+
     try {
-      autolinking = importAutolinkingExportsFromProject(projectRoot);
+      const resolutions = await scanNativeModuleResolutions(cache, {
+        projectRoot,
+        sdkVersion: exp.sdkVersion!,
+      });
+      for (const [dependencyName, dependency] of resolutions) {
+        if (dependency.duplicates && dependency.duplicates.length > 0) {
+          packagesWithIssues.set(dependencyName, dependency);
+        }
+      }
     } catch (error) {
       if (error instanceof ExpoExportMissingError) {
         return {
@@ -37,34 +49,6 @@ export class AutolinkingDependencyDuplicatesCheck implements DoctorCheck {
           issues: [],
           advice: [],
         };
-      }
-    }
-
-    const bundledNativeModules = await getVersionedNativeModuleNamesAsync(
-      projectRoot,
-      exp.sdkVersion!
-    );
-    const packagesWithIssues = new Map<string, DependencyResolution>();
-
-    const linker = autolinking.makeCachedDependenciesLinker({ projectRoot });
-    const dependenciesPerPlatform = await Promise.all(
-      AUTOLINKING_PLATFORMS.map((platform) => {
-        return autolinking.scanDependencyResolutionsForPlatform(
-          linker,
-          platform,
-          bundledNativeModules || undefined
-        );
-      })
-    );
-
-    for (const dependencyForPlatform of dependenciesPerPlatform) {
-      for (const dependencyName in dependencyForPlatform) {
-        const dependency = dependencyForPlatform[dependencyName];
-        if (!dependency || packagesWithIssues.has(dependencyName)) {
-          continue;
-        } else if (dependency.duplicates && dependency.duplicates.length > 0) {
-          packagesWithIssues.set(dependencyName, dependency);
-        }
       }
     }
 
@@ -105,6 +89,7 @@ export class AutolinkingDependencyDuplicatesCheck implements DoctorCheck {
         : `${dependency.name} at: ${relative}`;
     }
 
+    const corruptedInstallations: BaseDependencyResolution[] = [];
     for (const dependency of packagesWithIssues.values()) {
       if (dependency.duplicates?.length) {
         const line = [`Found duplicates for ${dependency.name}:`];
@@ -115,17 +100,46 @@ export class AutolinkingDependencyDuplicatesCheck implements DoctorCheck {
           line.push(`  ${prefix} ${await getHumanReadableDependency(duplicate)}`);
         }
         issues.push(line.join('\n'));
+
+        // If all versions are identical then the node_modules folder is corrupted
+        // This can happen if a package manager fails to clean up after itself when updating
+        // and may look like this:
+        // - expo-constants@18.0.2 (at: node_modules/expo-constants)
+        // - expo-constants@18.0.2 (at: node_modules/expo/node_modules/expo-constants)
+        // - expo-constants@18.0.2 (at: node_modules/expo-asset/node_modules/expo-constants)
+        // Note that in this example, all versions are identical, but multiple
+        // copies of the same version are installed
+        if (dependency.version) {
+          const areVersionsIdentical = dependency.duplicates.every((duplicate) => {
+            return (
+              duplicate.version &&
+              duplicate.version === dependency.version &&
+              /* NOTE(@kitten): We shouldn't have to compare here, but this is just in case there are weirder corruptions I can't think of */
+              duplicate.originPath !== dependency.originPath
+            );
+          });
+          if (areVersionsIdentical) corruptedInstallations.push(dependency);
+        }
       }
+    }
+
+    const advice: string[] = [];
+    if (issues.length) {
+      if (corruptedInstallations.length) {
+        advice.push(
+          `Multiple copies of the same version exist for: ${corruptedInstallations.map((x) => x.name).join(', ')}.\n` +
+            '- Try deleting your node_modules folders and reinstall your dependencies after.'
+        );
+      }
+      advice.push(
+        `Resolve your dependency issues and deduplicate your dependencies. ${learnMore('https://expo.fyi/resolving-dependency-issues')}`
+      );
     }
 
     return {
       isSuccessful: issues.length === 0,
       issues,
-      advice: issues.length
-        ? [
-            `Resolve your dependency issues and deduplicate your dependencies. ${learnMore('https://expo.fyi/resolving-dependency-issues')}`,
-          ]
-        : [],
+      advice,
     };
   }
 }

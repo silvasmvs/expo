@@ -234,7 +234,11 @@ export class AudioPlayerWeb
     getStatusFromMedia(this.media, this.id);
   }
 
-  _createMediaElement() {
+  setActiveForLockScreen(active: boolean, metadata: Record<string, any>): void {}
+  updateLockScreenMetadata(metadata: Record<string, any>): void {}
+  clearLockScreenControls(): void {}
+
+  _createMediaElement(): HTMLAudioElement {
     const newSource = getSourceUri(this.src);
     const media = new Audio(newSource);
     if (this.crossOrigin !== undefined) {
@@ -377,12 +381,12 @@ export class AudioRecorderWeb
     return [];
   }
 
-  getCurrentInput(): RecordingInput {
-    return {
+  getCurrentInput(): Promise<RecordingInput> {
+    return Promise.resolve({
       type: 'Default',
       name: 'Default',
       uid: 'Default',
-    };
+    });
   }
 
   async prepareToRecordAsync(): Promise<void> {

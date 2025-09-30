@@ -1,5 +1,6 @@
 export * from './BottomSheet';
 export * from './Button';
+export * from './Chart';
 export * from './ColorPicker';
 export * from './ContentUnavailableView';
 export * from './ContextMenu';
@@ -10,6 +11,7 @@ export * from './Gauge';
 export * from './Host';
 export * from './Image';
 export * from './Label';
+export * from './LabeledContent';
 export * from './Layout';
 export * from './List';
 export * from './Picker';
@@ -22,4 +24,7 @@ export * from './Switch';
 export * from './Text';
 export * from './TextField';
 export * from './SecureField';
+export * from './Namespace';
+export * from './GlassEffectContainer';
+export * from './Shapes';
 //# sourceMappingURL=index.d.ts.map

@@ -34,6 +34,9 @@ export declare class AudioPlayerWeb extends globalThis.expo.SharedObject<AudioEv
     setAudioSamplingEnabled(enabled: boolean): void;
     setPlaybackRate(second: number, pitchCorrectionQuality?: PitchCorrectionQuality): void;
     remove(): void;
+    setActiveForLockScreen(active: boolean, metadata: Record<string, any>): void;
+    updateLockScreenMetadata(metadata: Record<string, any>): void;
+    clearLockScreenControls(): void;
     _createMediaElement(): HTMLAudioElement;
 }
 export declare class AudioRecorderWeb extends globalThis.expo.SharedObject<RecordingEvents> implements AudioRecorder {
@@ -51,7 +54,7 @@ export declare class AudioRecorderWeb extends globalThis.expo.SharedObject<Recor
     record(options?: RecordingStartOptions): void;
     private startActualRecording;
     getAvailableInputs(): RecordingInput[];
-    getCurrentInput(): RecordingInput;
+    getCurrentInput(): Promise<RecordingInput>;
     prepareToRecordAsync(): Promise<void>;
     getStatus(): RecorderState;
     pause(): void;

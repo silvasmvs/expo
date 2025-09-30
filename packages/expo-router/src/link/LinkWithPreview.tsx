@@ -15,7 +15,7 @@ import { BaseExpoRouterLink } from './BaseExpoRouterLink';
 import { InternalLinkPreviewContext } from './InternalLinkPreviewContext';
 import { LinkMenu, LinkPreview, LinkTrigger } from './elements';
 import { useLinkPreviewContext } from './preview/LinkPreviewContext';
-import { NativeLinkPreview, NativeLinkPreviewTrigger } from './preview/native';
+import { NativeLinkPreview } from './preview/native';
 import { useNextScreenId } from './preview/useNextScreenId';
 import { LinkProps } from './useLinkHooks';
 import { shouldLinkExternally } from '../utils/url';
@@ -80,8 +80,6 @@ export function LinkWithPreview({ children, ...rest }: LinkProps) {
     () => triggerElement ?? <LinkTrigger>{children}</LinkTrigger>,
     [triggerElement, children]
   );
-  const highlightBorderRadius =
-    rest.style && 'borderRadius' in rest.style ? rest.style.borderRadius : undefined;
 
   const preview = React.useMemo(
     () => (shouldLinkExternally(String(rest.href)) || !previewElement ? null : previewElement),
@@ -134,11 +132,11 @@ export function LinkWithPreview({ children, ...rest }: LinkProps) {
         if (!isPad) {
           router.navigate(rest.href, { __internal__PreviewKey: nextScreenId });
         }
-      }}>
+      }}
+      style={{ display: 'contents' }}
+      disableForceFlatten>
       <InternalLinkPreviewContext value={{ isVisible: isCurrentPreviewOpen, href: rest.href }}>
-        <NativeLinkPreviewTrigger style={{ borderRadius: highlightBorderRadius }}>
-          <BaseExpoRouterLink {...rest} children={trigger} ref={rest.ref} />
-        </NativeLinkPreviewTrigger>
+        <BaseExpoRouterLink {...rest} children={trigger} ref={rest.ref} />
         {preview}
         {menuElement}
       </InternalLinkPreviewContext>

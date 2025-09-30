@@ -91,11 +91,7 @@ for (const args of [
 }
 
 describe('server', () => {
-  const expo = createExpoStart({
-    env: {
-      EXPO_USE_FAST_RESOLVER: 'true',
-    },
-  });
+  const expo = createExpoStart();
 
   beforeEach(async () => {
     expo.options.cwd = await setupTestProjectWithOptionsAsync('basic-start', 'with-blank');
@@ -150,7 +146,15 @@ describe('server', () => {
       version: 3,
       sources: expect.arrayContaining([
         '__prelude__',
-        expect.pathMatching(/metro-runtime\/src\/polyfills\/require\.js$/),
+        // NOTE(@kitten): We can slot in our own runtime here
+        expect.pathMatching(
+          new RegExp(
+            [
+              '/metro-runtime/src/polyfills/require.js',
+              '/@expo/cli/build/metro-require/require.js',
+            ].join('|')
+          )
+        ),
         expect.pathMatching(/@react-native\/js-polyfills\/console\.js$/),
         expect.pathMatching(/@react-native\/js-polyfills\/error-guard\.js$/),
         '\0polyfill:external-require',
@@ -163,11 +167,7 @@ describe('server', () => {
 });
 
 describe('start - dev clients', () => {
-  const expo = createExpoStart({
-    env: {
-      EXPO_USE_FAST_RESOLVER: 'true',
-    },
-  });
+  const expo = createExpoStart();
 
   let projectRoot: string;
 
@@ -213,7 +213,6 @@ describe('start - webcontainer', () => {
       EXPO_USE_STATIC: 'server',
       E2E_ROUTER_SRC: 'server',
       E2E_ROUTER_ASYNC: 'development',
-      EXPO_USE_FAST_RESOLVER: 'true',
       // Force webcontainer mode
       CI: 'false',
       EXPO_FORCE_WEBCONTAINER_ENV: 'true',

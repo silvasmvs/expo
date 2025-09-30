@@ -1,9 +1,16 @@
 import { NativeModule } from 'expo-modules-core/types';
+/**
+ * @hidden
+ */
 export interface ExpoAppIntegrityModule extends NativeModule {
+    isSupported: boolean;
     generateKey(): Promise<string>;
-    attestKey(key: string, challenge: string): Promise<string>;
-    generateAssertion(key: string, challenge: string): Promise<string>;
+    attestKey(keyId: string, challenge: string): Promise<string>;
+    generateAssertion(keyId: string, challenge: string): Promise<string>;
     prepareIntegrityTokenProvider(cloudProjectNumber: string): Promise<void>;
-    requestIntegrityCheck(challenge: string): Promise<string>;
+    requestIntegrityCheck(requestHash: string): Promise<string>;
+    isHardwareAttestationSupported(): Promise<boolean>;
+    generateHardwareAttestedKey(keyAlias: string, challenge: string): Promise<void>;
+    getAttestationCertificateChain(keyAlias: string): Promise<string[]>;
 }
 //# sourceMappingURL=ExpoAppIntegrity.types.d.ts.map

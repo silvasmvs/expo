@@ -1,6 +1,7 @@
 import { NativeModule, PermissionResponse, SharedObject } from 'expo-modules-core';
 
 import {
+  AudioMetadata,
   AudioMode,
   AudioSource,
   AudioStatus,
@@ -30,7 +31,7 @@ export declare class AudioPlayer extends SharedObject<AudioEvents> {
    * Initializes a new audio player instance with the given source.
    * @hidden
    */
-  constructor(source: AudioSource, updateInterval: number);
+  constructor(source: AudioSource, updateInterval: number, keepAudioSessionActive: boolean);
 
   /**
    * Unique identifier for the player object.
@@ -84,11 +85,56 @@ export declare class AudioPlayer extends SharedObject<AudioEvents> {
 
   /**
    * The current volume of the audio.
+   *
+   * **Range:** `0.0` to `1.0`. For example, `0.0` is completely silent (0%), `0.5` is half volume (50%), and `1.0` is full volume (100%).
+   *
+   *
+   * @example
+   * ```tsx
+   * import { useAudioPlayer } from 'expo-audio';
+   *
+   * export default function App() {
+   *   const player = useAudioPlayer(source);
+   *
+   *   // Mute the audio
+   *   player.volume = 0.0;
+   *
+   *   // Set volume to 50%
+   *   player.volume = 0.5;
+   *
+   *   // Set to full volume
+   *   player.volume = 1.0;
+   * }
+   * ```
    */
   volume: number;
 
   /**
-   * The current playback rate of the audio.
+   * The current playback rate of the audio. It accepts different values depending on the platform:
+   * - **Android**: `0.1` to `2.0`
+   * - **iOS**: `0.0` to `2.0`
+   * - **Web**: Follows browser implementation
+   *
+   * @example
+   * ```tsx
+   * import { useAudioPlayer } from 'expo-audio';
+   *
+   * export default function App() {
+   *   const player = useAudioPlayer(source);
+   *
+   *   // Normal playback speed
+   *   player.playbackRate = 1.0;
+   *
+   *   // Slow motion (half speed)
+   *   player.playbackRate = 0.5;
+   *
+   *   // Fast playback (1.5x speed)
+   *   player.playbackRate = 1.5;
+   *
+   *   // Maximum speed on mobile
+   *   player.playbackRate = 2.0;
+   * }
+   * ```
    */
   playbackRate: number;
 
@@ -132,7 +178,8 @@ export declare class AudioPlayer extends SharedObject<AudioEvents> {
 
   /**
    * Sets the current playback rate of the audio.
-   * @param rate The playback rate of the audio.
+   *
+   * @param rate The playback rate of the audio. See [`playbackRate`](#playbackrate) property for detailed range information.
    * @param pitchCorrectionQuality The quality of the pitch correction.
    */
   setPlaybackRate(rate: number, pitchCorrectionQuality?: PitchCorrectionQuality): void;
@@ -142,6 +189,27 @@ export declare class AudioPlayer extends SharedObject<AudioEvents> {
    * @hidden
    */
   setAudioSamplingEnabled(enabled: boolean): void;
+
+  /**
+   * Sets or removes this audio player as the active player for lock screen controls.
+   * Only one player can control the lock screen at a time.
+   * @param active Whether this player should be active for lock screen controls.
+   * @param metadata Optional metadata to display on the lock screen (title, artist, album, artwork).
+   */
+  setActiveForLockScreen(active: boolean, metadata?: AudioMetadata): void;
+
+  /**
+   * Updates the metadata displayed on the lock screen for this player.
+   * This method only has an effect if this player is currently active for lock screen controls.
+   * @param metadata The metadata to display (title, artist, album, artwork).
+   */
+  updateLockScreenMetadata(metadata: AudioMetadata): void;
+
+  /**
+   * Removes this player from lock screen controls if it's currently active.
+   * This will clear the lock screen's now playing info.
+   */
+  clearLockScreenControls(): void;
 
   /**
    * Remove the player from memory to free up resources.
@@ -240,7 +308,7 @@ export declare class AudioRecorder extends SharedObject<RecordingEvents> {
    * Returns the currently-selected recording input. This method can only be called if the `Recording` has been prepared.
    * @return A `Promise` that is fulfilled with a `RecordingInput` object.
    */
-  getCurrentInput(): RecordingInput;
+  getCurrentInput(): Promise<RecordingInput>;
 
   /**
    * Sets the current recording input.
